@@ -1,0 +1,15 @@
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\bin\Debug\TL_Plus.exe.config
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\bin\Debug\TL_Plus.exe
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\bin\Debug\TL_Plus.pdb
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\MainWindow.baml
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\MainWindow.g.cs
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\App.g.cs
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus_MarkupCompile.cache
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.g.resources
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.Properties.Resources.resources
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.csproj.GenerateResource.Cache
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.exe
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.pdb
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.csprojResolveAssemblyReference.cache
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\StudentCheckIn.baml
+c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\StudentCheckIn.g.cs
