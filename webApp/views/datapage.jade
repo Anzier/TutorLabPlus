@@ -1,0 +1,61 @@
+html
+	head
+		link(href="/css/style.css", rel="stylesheet", type="text/css")
+		script(src="http://code.jquery.com/jquery-latest.min.js")
+		script(src='http://d3js.org/d3.v3.min.js')
+		script(type = 'text/javascript').
+			//$(document).ready(function(){
+			//	alert("JQUERY UP")
+			//})
+			//$.get('http://127.0.0.1:3000/data',function(data){
+			//	$('body').append('Test')
+			//})
+			//this was in the body
+			//script(type = 'text/javascript').
+			//getting the data from the node server (could this also be passed directly though for d3 to access?)
+				//$.get('http://127.0.0.1:3000/data',function(data){
+				//	$('#gt-home-form').append(data.x)
+				//})
+	body
+		div.gt-wrap
+			div.gt-content
+				div.gt-squeeze
+					div.button-left.button-margin-left
+						div.gt-home-form
+							p LOGGED IN #{anum}
+							br
+							p here is some fake data passed from node (this will come from the SQL server, and are circle coordinates)
+							//THIS IS THE d3 GRAPHING CANVAS
+							script.
+								var canvas = d3.select('.gt-home-form')
+											.append('svg')
+											.attr('width',1000)
+											.attr('height',1000)
+								$.get('http://127.0.0.1:3000/data',function(data){
+									for(var i = 0;i<data.length;i++){
+										var circle = canvas.append('circle')
+															.attr('cy',data[i].y)
+															.attr('cx',data[i].x)
+															.attr('r',data[i].r)
+															.attr('fill','purple')
+										circle.transition()
+											.duration(10000)
+											.attr('cx',900)
+											.transition()
+											.delay(10000)
+											.duration(10000)
+											.attr('cx',50)
+											.each("start",function(){
+												d3.select(this).attr('fill','blue')
+											})
+											.each("end",function(){
+												d3.select(this).attr('fill','green')
+											})
+									}
+								})
+
+
+
+
+
+	

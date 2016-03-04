@@ -1,0 +1,15 @@
+html
+	head
+		link(href="/css/style.css", rel="stylesheet", type="text/css")
+	body
+		div.gt-wrap
+			div.gt-content
+				div.gt-squeeze
+					div.button-left.button-margin-left
+						div.gt-home-form
+							p #{error_message}
+							form(method="post")
+								input(type ="text", placeholder="A number", name = "a_number", class ="gt-input-form")
+								button(class="btn",type="submit").
+									Submit
+	
