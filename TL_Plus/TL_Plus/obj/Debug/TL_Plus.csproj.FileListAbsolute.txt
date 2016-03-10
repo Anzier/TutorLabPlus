@@ -13,3 +13,6 @@ c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\T
 c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\TL_Plus.csprojResolveAssemblyReference.cache
 c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\StudentCheckIn.baml
 c:\users\jecht\documents\visual studio 2013\Projects\TL_Plus\TL_Plus\obj\Debug\StudentCheckIn.g.cs
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\bin\Debug\TL_Plus.exe.config
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Debug\TL_Plus.exe
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Debug\TL_Plus.pdb

@@ -41,6 +41,10 @@ namespace TL_Plus
         {
             this.DragMove();
         }
+        private void Button_UPLOAD(object sender, MouseButtonEventArgs e)// allows dragging the window around
+        {
+          // INSERT CODE TO CONNECT TO DATABASE
+        }
         private void MinimizeButton_MinimizeLeftClick(object sender, MouseButtonEventArgs e)
         {
             WindowState = WindowState.Minimized;

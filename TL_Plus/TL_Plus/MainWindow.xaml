@@ -20,9 +20,10 @@
             <Button Name="MinimizeButton" PreviewMouseDown="MinimizeButton_MinimizeLeftClick" Content="_" Height="22" Canvas.Left="918" Canvas.Top="2" Width="39" Background="Transparent" RenderTransformOrigin="2.667,0.5"/>
             <ListBox x:Name="StudentsInLab" Height="547" Canvas.Left="22" Canvas.Top="125" Width="234"/>
             <Label Content="Students Currently In Lab:" Height="25" Canvas.Left="22" Canvas.Top="100" Width="234"/>
-            <Button Content="Check In" PreviewMouseDown="AddStudent" Height="47" Canvas.Left="289" Canvas.Top="518" Width="194"/>
+            <Button Content="Check In" PreviewMouseDown="AddStudent" Height="47" Canvas.Left="278" Canvas.Top="518" Width="194"/>
             <Button Content="Tutor Access" Height="47" Canvas.Left="510" Canvas.Top="518" Width="194"/>
             <TextBox Name="StudentInLabLabel"  HorizontalAlignment="Left" Height="20" BorderThickness="0" TextWrapping="Wrap" Text="Text"  IsReadOnly ="True" VerticalAlignment="Top" Width="270" Background="{x:Null}" Canvas.Left="22" Canvas.Top="677"/>
+            <Button Name ="UPLOAD" PreviewMouseDown="Button_UPLOAD"  Content="UPLOAD" Height="149" Canvas.Left="375" Canvas.Top="242" Width="399"/>
         </Canvas>
 
 

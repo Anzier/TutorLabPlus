@@ -52,7 +52,7 @@ namespace TL_Plus
             if (_Class == "") { _Class = "-None Selected-"; }
             string _problem = SignInProblem.Text;
            MainWindow.writeCheckInData(_ANum,_Class, _problem);
-
+            // TODO: send info to database
            this.Close();
 
         }
