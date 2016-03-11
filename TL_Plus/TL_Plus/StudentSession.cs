@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace TL_Plus
 {
@@ -19,42 +20,92 @@ namespace TL_Plus
         //}
        public StudentSession(string _ANum, string _Class, string _problem)
         {
+            active = true;
             Class = _Class;
             ANumber = _ANum;
             Name = "";// awaiting the database to return name
             S_ProbDesc = _problem;
             T_ProbDesc = "";// awaiting final submission to be saved
-            startTime = -1;
-            endTime = -1;// to be written on final submission
+            startTime = DateTime.Now.ToString();
+            endTime = "-1";// to be written on final submission
         }
-        void SetStartTime(double time)
-        {
-            startTime = time;
-        }
-        void SetEndTime(double time)
+
+
+       // ACTIVITY
+       public void SetActivity(bool A) {
+           active = A;
+       }
+
+       public bool Active() {// used when determining if a user is still active
+           return active;
+       }
+       // START TIME
+       public void SetStartTime(string time)
+       {
+           startTime = time;
+       }
+       public string GetStartTime()
+       {
+           return startTime;
+       }
+       // END TIME
+       public void SetEndTime(string time)
         {
             endTime = time;
         }
-        void SetName(string name)
+       public string GetEndTime()
+        {
+            return endTime;
+        }
+       // NAME
+       public  void SetName(string name)
         {
             Name = name;
-        }
-        void SetTutorDescription(string desc)
+        }  
+       public string getName()
         {
-            T_ProbDesc = desc;
+            return ANumber;// CHANGE THIS BACK TO NAME ONCE WE FINALIZE DATABASE
         }
-       public string returnName()//THIS FUNCTION IS ONLY FOR TESTING UNTIL WE CAN ACCESS THE DATABASE TO RETRIEVE THE NAME
-        {
-            return ANumber;
-        }
-       public string returnClass()//THIS FUNCTION IS ONLY FOR TESTING UNTIL WE CAN ACCESS THE DATABASE TO RETRIEVE THE NAME
+       // A NUMBER
+       public void SetANum(string name)
+       {
+           ANumber = name;
+       }
+       public string getANum()
+       {
+           return ANumber;
+       }
+       // TUTOR PROBLEM DESCRIPTION
+       public void SetTutorDescription(string desc)
+       {
+           T_ProbDesc = desc;
+       }
+       public string GetTutorDescription()
+       {
+           return T_ProbDesc;
+       }
+       // STUDENT PROBLEM DESCRIPTION
+       public void SetStudentDescription(string desc)
+       {
+           S_ProbDesc = desc;
+       }
+       public string GetStudentDescription()
+       {
+           return S_ProbDesc;
+       }
+       // CLASS
+       public string getClass()
        {
            return Class;
        }
+       public void setClass(string clas)
+       {
+           Class = clas;
+       }
 
-        double startTime;
-        double endTime;
-
+        bool active;
+        string startTime;
+        string endTime;
         string Class;
         string ANumber;
         string Name;

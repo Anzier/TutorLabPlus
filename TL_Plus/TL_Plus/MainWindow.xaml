@@ -18,12 +18,28 @@
             <Image Height="98" Width="175" Source="/Images/BigA.png" Canvas.Left="22" Canvas.Top="2"/>
             <Button Name ="CloseButton" Content="X" PreviewMouseDown="closeButton_CloseLeftClick" Height="22" Canvas.Left="959" Canvas.Top="2" Width="39" Background="Transparent" RenderTransformOrigin="2.667,0.5"/>
             <Button Name="MinimizeButton" PreviewMouseDown="MinimizeButton_MinimizeLeftClick" Content="_" Height="22" Canvas.Left="918" Canvas.Top="2" Width="39" Background="Transparent" RenderTransformOrigin="2.667,0.5"/>
-            <ListBox x:Name="StudentsInLab" Height="547" Canvas.Left="22" Canvas.Top="125" Width="234"/>
+            <ListBox x:Name="StudentsInLab" Height="547" Canvas.Left="12" Canvas.Top="125" Width="265" SelectionChanged="OnSelected" >
+            </ListBox>
             <Label Content="Students Currently In Lab:" Height="25" Canvas.Left="22" Canvas.Top="100" Width="234"/>
-            <Button Content="Check In" PreviewMouseDown="AddStudent" Height="47" Canvas.Left="278" Canvas.Top="518" Width="194"/>
-            <Button Content="Tutor Access" Height="47" Canvas.Left="510" Canvas.Top="518" Width="194"/>
+            <Button Content="Check In" Name="checkInOut" PreviewMouseDown="AddStudent" Height="47" Canvas.Left="277" Canvas.Top="125" Width="194"/>
+            <Button Content="Tutor Competion" Name="TutorButton" PreviewMouseDown="TutorControls" Height="47" Canvas.Left="277" Canvas.Top="177" Width="194"/>
             <TextBox Name="StudentInLabLabel"  HorizontalAlignment="Left" Height="20" BorderThickness="0" TextWrapping="Wrap" Text="Text"  IsReadOnly ="True" VerticalAlignment="Top" Width="270" Background="{x:Null}" Canvas.Left="22" Canvas.Top="677"/>
-            <Button Name ="UPLOAD" PreviewMouseDown="Button_UPLOAD"  Content="UPLOAD" Height="149" Canvas.Left="375" Canvas.Top="242" Width="399"/>
+            <RichTextBox Height="301" Canvas.Left="492" Canvas.Top="125" Width="465">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="Instructions to fellow developers:"/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="when no one is selected, the top button is 'check in'. when a user is selected, that same button changes to 'check out'."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="changing the background color (to grey out students who finished) was a royal nightmare and waste of 4 hours for trying, so now it simply displays [removed]"/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="Tutor completion is also a dual-use button. If a user is selected AND the top button displays 'check in' (can only happen if that user has already checked out) the tutor completion button will take you to the final submission form for the tutor. If you aren't selecting a finished student, it will take you to the verification tutor page."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
         </Canvas>
 
 

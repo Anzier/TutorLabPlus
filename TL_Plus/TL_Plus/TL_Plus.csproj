@@ -57,6 +57,9 @@
       <DependentUpon>StudentCheckIn.xaml</DependentUpon>
     </Compile>
     <Compile Include="StudentSession.cs" />
+    <Compile Include="TutorCompetion.xaml.cs">
+      <DependentUpon>TutorCompetion.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +73,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StudentCheckIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TutorCompetion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

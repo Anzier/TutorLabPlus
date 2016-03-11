@@ -13,3 +13,5 @@ C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.Properties.R
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.csproj.GenerateResource.Cache
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.exe
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.pdb
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorCompetion.baml
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorCompetion.g.cs

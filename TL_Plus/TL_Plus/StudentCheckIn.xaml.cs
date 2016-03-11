@@ -36,7 +36,7 @@ namespace TL_Plus
              SignInComboBox.SelectedIndex = 0;
         }
 
-        private void Action_Cancel(object sender, RoutedEventArgs e)
+        private void Action_Cancel(object sender, RoutedEventArgs e)//@@@@@@@@@@@ HANDLE BUG HERE: CANCELING DOES NOTHING TO STOP THE PROGRAM FROM READING IN A BLANK OBJECT ANYWAYS AND ENTERING A DEFAULT STUDENT
         {
             this.Close();
         }
