@@ -105,7 +105,7 @@ namespace TL_Plus
             //NotifyPropertyChange("checkin");
 
             StudentsInLab.Items.RemoveAt(index);
-            StudentsInLab.Items.Insert(index, ActiveList[index].getName()+"[Removed]");
+            StudentsInLab.Items.Insert(index, ActiveList[index].getName()+"[Checked Out]");
             StudentsInLab.SelectedIndex = index;
             //NotifyPropertyChanged("checkin"); 
             checkInOut.Content = "Check In";
@@ -151,15 +151,22 @@ namespace TL_Plus
                 TutorCompetion endSession = new TutorCompetion(ActiveList[StudentsInLab.SelectedIndex]);
                 endSession.Owner = this;
                 endSession.ShowDialog();
+
+                int index = StudentsInLab.SelectedIndex;
+                StudentsInLab.Items.RemoveAt(index);
+                StudentsInLab.Items.Insert(index, ActiveList[index].getName() + "[Completed]");
+
+                NUM_STUDENTS_IN_LAB--;
+                StudentInLabLabel.Text = "There are " + NUM_STUDENTS_IN_LAB + " students in the lab";
+                StudentsInLab.UnselectAll();
                 return; }
 
-            MessageBox.Show("Sorry Wilfred, The tutor Access isn't complete yet");
+            //MessageBox.Show("Sorry Wilfred, The tutor Access isn't complete yet");
+            TutorVerification Tlogin = new TutorVerification();
+            Tlogin.Owner = this;
+            Tlogin.ShowDialog();
+            return;
 
-
-            //TODO: REMOVE STUDENTS FROM PROGRAM HERE
-           // StudentsInLab.Items.Add(ActiveList[LSA - 1].getName());
-           // NUM_STUDENTS_IN_LAB--;
-           // StudentInLabLabel.Text = "There are " + NUM_STUDENTS_IN_LAB + " students in the lab";
         }
 
 

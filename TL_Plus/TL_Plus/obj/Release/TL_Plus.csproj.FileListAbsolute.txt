@@ -15,3 +15,7 @@ C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.exe
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TL_Plus.pdb
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorCompetion.baml
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorCompetion.g.cs
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorsPage.baml
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorVerification.baml
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorsPage.g.cs
+C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorVerification.g.cs
