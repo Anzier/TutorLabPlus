@@ -6,8 +6,16 @@
 
 @charset "UTF-8";
 /********************
-¡MIXINS
+¡AXES
 ********************/
+  .axis path, .axis line {
+      fill: none;
+      stroke: #a8f2c3;
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
+  }
+
+
 /********************
 ¡CLASSES
 ********************/
@@ -23,11 +31,22 @@
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  height: 100%;
+  height: 85%;
   max-width: 1000px;
 }
 
 .gt-home-form{
+  position:absolute;
+  /*top:50%;*/
+  right:0;
+  left:0;
+  text-align: center;
+  vertical-align:middle;
+  height:100%;
+}
+
+
+.gt-prof-form{
   position:absolute;
   top:50%;
   right:0;
@@ -37,6 +56,14 @@
   height:100%;
 }
 
+.gt-title{
+  position:relative;
+  top:12.5%;
+  left:50%;
+  width: 500px;
+  margin-left: -250px; /* Half the width */
+  color: #ffd2aa;
+}
 .gt-squeezeNoMore {
   position: relative;
   margin:0 auto;
@@ -80,6 +107,28 @@
 input{
   border:3px solid #f8f1c8;
   color: #8fd4da;
+}
+
+/*------------------------------------*\
+              ¡GRAPH
+\*------------------------------------*/
+#chart {
+  width:300px;
+  height:200px;
+  border:1px solid black;
+  margin-top:10px;
+}
+
+#chartArea {
+  width:1000px;
+  height:1000px;
+  background-color: #b296a2;
+}
+
+.active {
+      fill: #9a004b;
+      fill-opacity: 0.5;
+      stroke-width: 3px;
 }
 /*------------------------------------*\
               ¡BUTTONS

@@ -38,18 +38,57 @@ router.post('/', function(req, res) {
 	}
 
 })
-router.get('/data', function(req,res){
+router.get('/data/:id', function(req,res){
+	//return data only associated with the professor
 	  // CSP headers
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "X-Requested-With");
-	res.send([{x:500,y:125,r:10},
-			  {x:250,y:125,r:10},
-			  {x:200,y:250,r:10}]);
+  //here i'll create a json object with dates and a count and serve it up
+  //these need to be sorted on date before being passed
+  var fakeData = {
+  	"A01281942":
+  	[
+   		{
+  			"date":"20160104",
+  			"count":1
+  		},
+   		{
+  			"date":"20160105",
+  			"count":100
+  		},
+  		{
+  			"date":"20160301",
+  			"count":10
+  		},
+  		{
+  			"date":"20160302",
+  			"count":20
+  		},
+  		{
+  			"date":"20160303",
+  			"count":13
+  		},
+  		{
+  			"date":"20160304",
+  			"count":7
+  		},
+
+    	{
+  			"date":"20160305",
+  			"count":50
+  		},
+     	{
+  			"date":"20160306",
+  			"count":10
+  		},
+  	]
+  }
+	res.send(fakeData);
 })
 
 router.get('/:anum', function(req,res){
 	res.render('datapage',{
-		anum: req.params.anum
+		anum: JSON.stringify(req.params.anum)
 	});
 })
 
