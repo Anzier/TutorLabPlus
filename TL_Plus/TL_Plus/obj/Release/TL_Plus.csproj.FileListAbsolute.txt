@@ -19,3 +19,24 @@ C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorsPage.baml
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorVerification.baml
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorsPage.g.cs
 C:\Users\Jecht\Documents\cs3450\TL_Plus\TL_Plus\obj\Release\TutorVerification.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\bin\Release\TL_Plus.exe.config
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.exe
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.pdb
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\bin\Release\TL_Plus.exe
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\bin\Release\TL_Plus.pdb
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\MainWindow.baml
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\StudentCheckIn.baml
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorCompetion.baml
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorsPage.baml
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorVerification.baml
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\MainWindow.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\StudentCheckIn.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorCompetion.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorsPage.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TutorVerification.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\App.g.cs
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus_MarkupCompile.cache
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.g.resources
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.Properties.Resources.resources
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.csproj.GenerateResource.Cache
+D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.csprojResolveAssemblyReference.cache
