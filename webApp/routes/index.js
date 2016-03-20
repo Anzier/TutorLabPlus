@@ -3,25 +3,24 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var session = require('express-session')
 var router = express.Router();
-var Connection = require('tedious').Connection
-var config   = {
-	userName : 'Mach5',
-	password : '#DarthVader',
-	server   : 'se3450.database.windows.net',
-	options  : {encrypt:true,database:'AdventureWorks'}
-}
+var mysql = require('mysql')
 
-var connection = new Connection(config);
-connection.on('connect',function(err){
-	console.log(err)
-	if(!err){
-		console.log('connected')
-	}
+var connection = mysql.createConnection({
+  host    : 'se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com',
+  user    : 'Mach5',
+  password: 'DarthVader',
+  port    : '3306',
+  database: 'se3450'
 })
+
+//a basic query of the mysql database
+connection.query('SHOW TABLES', function(err, data) {
+  if (err) throw err;
+  console.log(data);
+ });
 
 router.get('/', function(req, res) {
   res.render('profLogin')
-
 })
 
 
@@ -81,6 +80,18 @@ router.get('/data/:id', function(req,res){
   			"date":"20160306",
   			"count":10
   		},
+      {
+        "date":"20160313",
+        "count":10
+      },
+      {
+        "date":"20160314",
+        "count":12
+      },
+      {
+        "date":"20160315",
+        "count":2
+      },
   	]
   }
 	res.send(fakeData);
