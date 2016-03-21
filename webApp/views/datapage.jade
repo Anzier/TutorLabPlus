@@ -3,7 +3,8 @@ html
 		link(href="/css/style.css", rel="stylesheet", type="text/css")
 		script(src="http://code.jquery.com/jquery-latest.min.js")
 		script(src='http://d3js.org/d3.v3.min.js')
-		script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js")			
+		script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js")			
 		script(type = 'text/javascript').
 			//$(document).ready(function(){
 			//	alert("JQUERY UP")
@@ -22,17 +23,24 @@ html
 						div.gt-home-form#chartArea
 							p.gt-title LOGGED IN #{anum}
 							//update chart to previous month onclick
-							button(class="btn",type="submit", onclick="updateChart('previous')").
+							button(class="btn",type="submit", id = 'previous',onclick="updateChart('previous')").
 								<<
 
 							//update chart to next month onclick
-							button(class="btn",type="submit", onclick="updateChart('next')").
+							button(class="btn",type="submit", id = 'next', onclick="updateChart('next')").
 								>>
-							//br
-							//p here is some fake data passed from node (this will come from the SQL server, and are circle coordinates)
-							//THIS IS THE d3 GRAPHING CANVAS
-							script.								
-								var viewType;
+							script.
+								$('#previous').click(function(){
+									viewtype.nav = "previous"
+									updateChart(viewtype)
+								})
+								$('#next').click(function(){
+									viewtype.nav = "next"
+									updateChart(viewtype)
+								})
+							script.
+								var viewtype = {};
+								var prevView;
 								var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 								var svg = d3.select('.gt-home-form')
 											.append('svg')
@@ -47,6 +55,7 @@ html
 								anum = anum.replace(/&quot;/g, '')
 								var today = new Date();
 								var currMonth = today.getMonth();
+								var currDay   = moment(today);
 								//i suppose we can currently leave this the way it is, we'll see depending on what the data looks like
 								//this needs to get the data only associated with the specific professor
 								//can i break this data up by weeks in the front end?
@@ -73,69 +82,97 @@ html
 								//this is going to need a different funcionality
 								//data needs to change based on a monthly, weekly, daily view
 								//not professor.   above we should only get data associated with professor Anumber
-								function updateChart (type) {	
+								function updateChart (type) {
+									console.log(type);	
 									var data = professors[anum];
+									var todayDate = moment(today);
+									var testToday = moment(today);
+									//var testDate = moment(dates[dates.length])
+									//these are in the same week
+									//console.log(todayDate.isSame(testDate,"week"))
+									//- var testDate = moment(dates[dates.length]);
+									//console.log(testDate);
+									//console.log(todayDate);
+									//console.log('is this? ' +  moment(todayDate.isSame(testDate,'week')))
+									if(typeof type !== 'undefined'){
+										if(type.view === "monthly" && typeof type.nav === "undefined"){
+											prevView = "monthly"
+											//change title to reflect user selection
+											$('.gt-title').text(monthNames[today.getMonth()])
+											data = data.filter(function(d){
+												if(today.getMonth()===d.date.getMonth()){
+													return d;
+												}
+											})
+										}else if(type.view === "weekly" && typeof type.nav === "undefined"){
+											$('.gt-title').text("Weekly View")
+											if(prevView === "monthly"){
+												console.log("switched from a monthly view");
+											}else{
+												data = data.filter(function(d){
+													if(todayDate.isSame(moment(d.date),"week")){
+														return d;
+													}
+												})
+											}
+											prevView = "weekly"
+										}
+										if(type.nav === "previous" && type.view === "monthly"){
+											console.log(currMonth);
+											if(currMonth == 0){
+												currMonth = 11;
+											}else{
+												currMonth--;										
+											}
+											$('.gt-title').text(monthNames[currMonth])
+											data = data.filter(function(d){
+												if(currMonth===d.date.getMonth()){
+													return d;
+												}
+											})
+										}
+										if(type.nav === "next" && type.view === "monthly"){
+											if(currMonth==11){
+												currMonth = 0;
+											}else{
+												currMonth++;										
+											}
+											$('.gt-title').text(monthNames[currMonth])
+											data = data.filter(function(d){
+												if(currMonth===d.date.getMonth()){
+													return d;
+												}
+											})
+										}
+										if(type.nav === "previous" && type.view === "weekly"){
+											//if there is no data, just keep calling this until there is.
+											currDay = moment(currDay).subtract(7,'day');
+											$('.gt-title').text("Weekly View")		
+											//if i wanted to show months, but I feel its misleading
+											//$('.gt-title').text(monthNames[currDay.month()])
+											data = data.filter(function(d){
+												if(currDay.isSame(moment(d.date),"week")){
+													return d;
+												}
+											})
+											//this solution doesn't work
+											//i was trying to just keep running the update on the chart until there was actual data to display to the user
+											//- if(data.length === 0){
+											//- 	updateChart(viewtype);
+											//- }
+										}
+										if(type.nav === "next" && type.view === "weekly"){
+											currDay = moment(currDay).add(7,'day');
+											//$('.gt-title').text(monthNames[currDay.month()])
+											data = data.filter(function(d){
+												if(currDay.isSame(moment(d.date),"week")){
+													return d;
+												}
+											})
+										}								
+									}
 									var dates = _.map(data, 'date');
 									var counts = _.map(data, 'count');
-									if(type === "monthly"){
-										viewtype = "monthly";
-										//change title to reflect user selection
-										$('.gt-title').text(monthNames[today.getMonth()])
-										//this only needs to happen on a monthly view option
-										data = data.filter(function(d){
-											if(today.getMonth()===d.date.getMonth()){
-												return d;
-											}
-										})
-										dates = dates.filter(function(d){
-											if(today.getMonth()===d.getMonth()){
-												return d;
-											}
-										})									
-									}else if(type === "weekly"){
-										viewtype = "weekly";
-										$('.gt-title').text("weekly")
-									}else if(type === "previous"){
-										if(currMonth == 0){
-											currMonth = 11;
-										}else{
-											currMonth--;										
-										}
-
-										//change title to reflect user selection
-										$('.gt-title').text(monthNames[currMonth])
-										//this only needs to happen on a monthly view option
-										data = data.filter(function(d){
-											if(currMonth===d.date.getMonth()){
-												return d;
-											}
-										})
-										dates = dates.filter(function(d){
-											if(currMonth===d.getMonth()){
-												return d;
-											}
-										})	
-									}else if(type === "next"){
-										if(currMonth==11){
-											currMonth = 0;
-										}else{
-											currMonth++;										
-										}										//change title to reflect user selection
-										$('.gt-title').text(monthNames[currMonth])
-										//this only needs to happen on a monthly view option
-										data = data.filter(function(d){
-											if(currMonth===d.date.getMonth()){
-												return d;
-											}
-										})
-										dates = dates.filter(function(d){
-											if(currMonth===d.getMonth()){
-												return d;
-											}
-										})	
-									}
-
-									console.log(viewType)	
 									var x = d3.time.scale()
 									  //examine the date array, return the minimum and maximum for scaling
 									  .domain(d3.extent(dates))
@@ -144,18 +181,6 @@ html
 									var y = d3.scale.linear()
 									  .domain(d3.extent(counts))
 									  .range([h, 75]);
-									//making a line chart in d3
-									// var line = d3.svg.line()
-									//smooth curves for interpolation
-									//     .interpolate('bundle')
-									//     .x(function(d){
-									//scaling
-									//       return x(d.date);
-									//     })
-									//scaling
-									//     .y(function(d){
-									//       return y(d.count);
-									//     })
 									var area = d3.svg.area()
 									  .interpolate('bundle')
 									  .x(function (d) {
@@ -194,6 +219,8 @@ html
 									//add area
 									svg.append('g')
 										.append('path')
+										// if in monthly view mouse click switches to weekly view
+										// if in weekly view, mouse click to see list of students
 										//maybe on mouse click show the list of students?
 									  	//maybe on mouse click show the questions asked??
 									  	.on('mouseover',function(d){
@@ -201,6 +228,14 @@ html
 									  	})
 									  	.on('mouseout',function(d){
 									  		d3.select(this).classed('active',false)
+									  	})
+									  	.on('mousedown',function(d){
+									  		if(type.view === "monthly"){
+									  			type.view = "weekly"
+									  			updateChart(type)
+									  		}else{
+									  			//show list of students
+									  		}
 									  	})
 										.datum(data)
 										.style('opacity',0)
@@ -212,33 +247,6 @@ html
 
 
 								}
-								// circle code
-								//- var canvas = d3.select('.gt-home-form')
-								//- 			.append('svg')
-								//- 			.attr('width',1000)
-								//- 			.attr('height',1000)
-								//- $.get('http://127.0.0.1:3000/data',function(data){
-								//- 	for(var i = 0;i<data.length;i++){
-								//- 		var circle = canvas.append('circle')
-								//- 							.attr('cy',data[i].y)
-								//- 							.attr('cx',data[i].x)
-								//- 							.attr('r',data[i].r)
-								//- 							.attr('fill','purple')
-								//- 		circle.transition()
-								//- 			.duration(10000)
-								//- 			.attr('cx',900)
-								//- 			.transition()
-								//- 			.delay(10000)
-								//- 			.duration(10000)
-								//- 			.attr('cx',50)
-								//- 			.each("start",function(){
-								//- 				d3.select(this).attr('fill','blue')
-								//- 			})
-								//- 			.each("end",function(){
-								//- 				d3.select(this).attr('fill','green')
-								//- 			})
-								//- 	}
-								//- })
 				div.gt-squeeze
 					div.gt-home-form				
 						button(class="btn",type="submit", onclick="updateChart('weekly')", id = 'weekly').
@@ -248,12 +256,14 @@ html
 							Month
 					script.
 						$('#weekly').click(function(){
-							console.log('weekly selected');
-							viewType = "weekly"
+							viewtype.view = "weekly"
+							delete viewtype.nav; 
+							updateChart(viewtype)
 						})
 						$('#monthly').click(function(){
-							console.log('monthly selected');
-							viewType = "monthly"
+							viewtype.view = "monthly"
+							delete viewtype.nav
+							updateChart(viewtype)
 						})
 
 

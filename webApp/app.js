@@ -9,6 +9,7 @@ var express 		    = require('express')
   , db                  = require('./db')
   , Users               = require('./models/users')
   , jade                = require('jade')
+
 var app = express();
 
 
