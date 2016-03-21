@@ -39,4 +39,3 @@ D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Pl
 D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.g.resources
 D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.Properties.Resources.resources
 D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.csproj.GenerateResource.Cache
-D:\Visual Studio Projects\Software Engineering\TL_Plus\TL_Plus\obj\Release\TL_Plus.csprojResolveAssemblyReference.cache

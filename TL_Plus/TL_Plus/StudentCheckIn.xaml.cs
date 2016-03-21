@@ -54,7 +54,7 @@ namespace TL_Plus
            MainWindow.writeCheckInData(_ANum,_Class, _problem);
             // TODO: send info to database
            MySQLConnect connect = new MySQLConnect() ;
-           connect.Insert("12:15", "1:15", _Class, _ANum, "Bob", "tangled", "blue");
+           connect.Insert(_ANum, "12:15", "1:15", _Class, "Bob", "tangled", "blue");
            this.Close();
 
         }

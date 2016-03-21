@@ -24,13 +24,17 @@ namespace TL_Plus
 
         private void Initialize()
         {
+            server = "se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com";
+            database = "se3450";
+            uid = "Mach5";
+            password = "DarthVader";
 
-            server = "localhost";
+            /*server = "localhost";
             database = "cs3450";
             uid = "root";
-            password = "Pass";
+            password = "Pass";*/
             string connectString;
-            connectString = "Server=" + server + ";Database=" + database + ";Uid=" + uid + ";Pwd=" + password + ";";
+            connectString = "host=" + server + ";Database=" + database + ";Uid=" + uid + ";Pwd=" + password + ";";
             connection = new MySqlConnection(connectString);
         }
 
@@ -39,7 +43,7 @@ namespace TL_Plus
             try
             {
                 connection.Open();
-               // MessageBox.Show("Connection Opened");  Debug to show the connection opens
+              //  MessageBox.Show("Connection Opened");  //Debug to show the connection opens
                 return true;
             }
             catch (MySqlException ex)
@@ -70,21 +74,26 @@ namespace TL_Plus
                 return false;
             }
         }
-        public void Insert(string ANum, string sTime = null, string eTime = null, string course = null, string name=null, string sProb=null, string tProb=null)
+        public void Insert(string ANum, string sTime, string eTime, string course, string name, string sProb, string tProb)
         {
-            string query = "INSERT INTO studentinfo(STime, ETime, Course, ANumber, Name, Student_Problem, Tutor_Problem) VALUES (" +
-                "'" + sTime
+            /*string query = "INSERT INTO studentinfo(STime, ETime, Course, Anumber, Name, Student_Problem, Tutor_Problem) VALUES (" 
+                + "'"   + sTime
                 + "','" + eTime 
                 + "','" + course 
                 + "','" + ANum
                 + "','" + name
                 + "','" + sProb
                 + "','" + tProb
-                + "')";
+                + "')";*/
             if(this.OpenConnection() == true)
             {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
+                MessageBox.Show("Connection Opened");
+              //  MySqlCommand cmd = new MySqlCommand(query, connection);
+               // cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("Not Connected, can't use the force Vader");
             }
         }
     }
