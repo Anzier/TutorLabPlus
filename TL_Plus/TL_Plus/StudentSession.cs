@@ -28,6 +28,7 @@ namespace TL_Plus
             T_ProbDesc = "";// awaiting final submission to be saved
             startTime = DateTime.Now.ToString();
             endTime = "-1";// to be written on final submission
+            Teacher = "Dan Watson";
         }
 
 
@@ -64,7 +65,7 @@ namespace TL_Plus
         }  
        public string getName()
         {
-            return ANumber;// CHANGE THIS BACK TO NAME ONCE WE FINALIZE DATABASE
+            return Name;// CHANGE THIS BACK TO NAME ONCE WE FINALIZE DATABASE
         }
        // A NUMBER
        public void SetANum(string name)
@@ -102,6 +103,15 @@ namespace TL_Plus
        {
            Class = clas;
        }
+       // CLASS
+       public string getTeacher()
+       {
+           return Teacher;
+       }
+       public void setTeacher(string teacher)
+       {
+           Teacher = teacher;
+       }
 
         bool active;
         string startTime;
@@ -111,6 +121,7 @@ namespace TL_Plus
         string Name;
         string S_ProbDesc;//students problem description (may need better variable that holds more data)
         string T_ProbDesc;// tutors description of the problem at the end.
+        string Teacher;
 
     }
 }

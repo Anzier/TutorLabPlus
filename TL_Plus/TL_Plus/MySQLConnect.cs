@@ -74,22 +74,28 @@ namespace TL_Plus
                 return false;
             }
         }
-        public void Insert(string ANum, string sTime, string eTime, string course, string name, string sProb, string tProb)
+        //When a problem had an apostrophe, it was messing up the sql string beause it needed to be formatted as a ''
+        public string fixApostrophe(string s)
         {
-            /*string query = "INSERT INTO studentinfo(STime, ETime, Course, Anumber, Name, Student_Problem, Tutor_Problem) VALUES (" 
-                + "'"   + sTime
-                + "','" + eTime 
-                + "','" + course 
-                + "','" + ANum
-                + "','" + name
-                + "','" + sProb
-                + "','" + tProb
-                + "')";*/
-            if(this.OpenConnection() == true)
+            return s.Replace("'", "''");
+        }
+        public void Insert(string name, string course, string teacher, string sTime, string eTime, string sProb, string tProb)
+        {
+            //string studentInfo = "INSERT INTO studentSessions(sName) VALUES('Test')";
+            string studentInfo = "INSERT INTO studentSessions(sName, class, teacher, timeIn, timeOut, sComment, tComment) VALUES ("
+                + "'" + name
+                + "','" + course
+                + "','" + teacher
+                + "','" + sTime
+                + "','" + eTime
+                + "','" + fixApostrophe(sProb)
+                + "','" + fixApostrophe(tProb)
+                + "')";
+            if (this.OpenConnection() == true)
             {
                 MessageBox.Show("Connection Opened");
-              //  MySqlCommand cmd = new MySqlCommand(query, connection);
-               // cmd.ExecuteNonQuery();
+                MySqlCommand cmd = new MySqlCommand(studentInfo, connection);
+                cmd.ExecuteNonQuery();
             }
             else
             {

@@ -77,6 +77,10 @@ namespace TL_Plus
                 + publicObject.GetStartTime() + "\n end Time: " + publicObject.GetEndTime()
                 + "\n Name: (not yet handled)");
 
+            MySQLConnect connect = new MySQLConnect() ;
+            connect.Insert(publicObject.getName(), publicObject.getClass(), publicObject.getTeacher(), publicObject.GetStartTime(),
+                publicObject.GetEndTime(), publicObject.GetStudentDescription(), publicObject.GetTutorDescription());
+
             //MainWindow.writeCheckInData(_ANum, _Class, _problem);
             // TO DO: Call a function that removes the user after this within the main window
             // TO DO: IDEA - send object by reference, return boolean to indicate if they canceled or submitted application

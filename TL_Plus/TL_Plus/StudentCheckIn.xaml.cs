@@ -53,8 +53,8 @@ namespace TL_Plus
             string _problem = SignInProblem.Text;
            MainWindow.writeCheckInData(_ANum,_Class, _problem);
             // TODO: send info to database
-           MySQLConnect connect = new MySQLConnect() ;
-           connect.Insert(_ANum, "12:15", "1:15", _Class, "Bob", "tangled", "blue");
+           //MySQLConnect connect = new MySQLConnect() ;
+           //connect.Insert(_ANum, "12:15", "1:15", _Class, "Bob", "tangled", "blue");
            this.Close();
 
         }
