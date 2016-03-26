@@ -21,69 +21,61 @@ namespace TL_Plus
     public partial class TutorCompetion : Window
     {
         StudentSession publicObject;
-
+        public bool continuing;
         public TutorCompetion(StudentSession inc_app)// incomplete application
         {
+            continuing = false;// is set to true on submit, otherwise MainWindow will not try to process the empty return
             publicObject = inc_app;
             InitializeComponent();
 
 
-            // COMMENTED VARIABLES ARE THOSE THAT SHOULD HAVE BEEN WRITTEN PRIOR TO THIS STAGE
-            t_ANum.Text = inc_app.getANum();
+            t_teacher.Text = inc_app.getTeacher();
+            t_name.Text = inc_app.getName();
             t_class.Text = inc_app.getClass();
             t_SignInProblem.Text = inc_app.GetStudentDescription();
-            //t_tutorFeedback.Text = "";
-            //t_name.Text;
+            t_tutorFeedback.Text = "";
             t_startTime.Text = inc_app.GetStartTime(); ;
             t_endTime.Text = DateTime.Now.ToString();
+            inc_app.SetEndTime(t_endTime.Text);
         }
-        /*
-         string startTime;
-        string endTime;
-        string Class;
-        string ANumber;
-        string Name;
-        string S_ProbDesc;//students problem description (may need better variable that holds more data)
-        string T_ProbDesc;// tutors description of the problem at the end.
-         
-         */
-        private void Action_Cancel(object sender, RoutedEventArgs e)//@@@@@@@@@@@ HANDLE BUG HERE: CANCELING DOES NOTHING TO STOP THE PROGRAM FROM READING IN A BLANK OBJECT ANYWAYS AND ENTERING A DEFAULT STUDENT
+        private void Action_Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
         private void Action_Submit(object sender, RoutedEventArgs e)
         {
+            
             string verifyUntouched = "Mention anything the student did not understand. What you worked through and accomplished together. What areas the student needs more strengthening in.";
             if (t_tutorFeedback.Text.Length < 20 || t_tutorFeedback.Text == "" || t_tutorFeedback.Text == verifyUntouched) {
-                MessageBox.Show("Be More Elaborate in your description!\n Access Denied!"); return;
+                MessageBox.Show("It is essential that we gain personalized data,\nPlease enter a unique description "); return;
             }
-            // TO DO: SAVE THE DATA ENTERED IN THE FIELDS INTO THESE VARIABLES - CREATE OBJECT INITIALIZED WITH THESE VALUES
+           
 
-            publicObject.SetANum(t_ANum.Text);
+            publicObject.setTeacher(t_teacher.Text);
             publicObject.setClass(t_class.Text);
             publicObject.SetEndTime(t_endTime.Text);
             publicObject.SetName(t_name.Text);
             publicObject.SetStartTime(t_startTime.Text);
             publicObject.SetStudentDescription(t_SignInProblem.Text);
             publicObject.SetTutorDescription(t_tutorFeedback.Text);
-            //////////////////////////////////////////////////////////////////////
-            // LOGAN - JAKE                                                     //
-            // THIS IS WHERE YOU INSERT THE CODE TO CONNECT TO THE DATABASE     //
-            //////////////////////////////////////////////////////////////////////
-            MessageBox.Show("'Data Theoretically Sent to DB'\n" + "A#: " + publicObject.getANum() +"\n class: " 
-                + publicObject.getClass()+"\n Student problem:" + publicObject.GetStudentDescription() 
-                + "\n tutor desc: " + publicObject.GetTutorDescription() + "\n start time: " 
-                + publicObject.GetStartTime() + "\n end Time: " + publicObject.GetEndTime()
-                + "\n Name: (not yet handled)");
 
+
+              //MessageBox.Show("'Data Theoretically Sent to DB'\n" + "name: " + publicObject.getName() +"\n class: " 
+              // + publicObject.getClass()+"\n Student problem:" + publicObject.GetStudentDescription() 
+              // + "\n tutor desc: " + publicObject.GetTutorDescription() + "\n start time: " 
+              //  + publicObject.GetStartTime() + "\n end Time: " + publicObject.GetEndTime()
+              //  + "\n Name: (not yet handled)");
+
+            string name = "nanem";
+            name = name.ToUpper();
             MySQLConnect connect = new MySQLConnect() ;
-            connect.Insert(publicObject.getName(), publicObject.getClass(), publicObject.getTeacher(), publicObject.GetStartTime(),
-                publicObject.GetEndTime(), publicObject.GetStudentDescription(), publicObject.GetTutorDescription());
+            connect.Insert(publicObject.getName().ToUpper(), publicObject.getClass().ToUpper(), publicObject.getTeacher().ToUpper(),
+                publicObject.GetStartTime().ToUpper(), publicObject.GetEndTime().ToUpper(), publicObject.GetStudentDescription().ToUpper(),
+                publicObject.GetTutorDescription().ToUpper());// ALL CONTENT STORED IN THE DATABASE WILL BE CONVERTED TO UPPERCASE STANDARDIZATION
 
-            //MainWindow.writeCheckInData(_ANum, _Class, _problem);
-            // TO DO: Call a function that removes the user after this within the main window
-            // TO DO: IDEA - send object by reference, return boolean to indicate if they canceled or submitted application
+
+            continuing = true;
             this.Close();
 
         }

@@ -20,23 +20,27 @@ namespace TL_Plus
     public partial class StudentCheckIn : Window
     {
         static List<string> courses;// predetermined list of classes offered at USU
-
+        public bool continuing;
 
         public StudentCheckIn(List<string> courseList)// constructor, initializes the Gui, loads the combobox with the list of classes
         {
+            InitializeComponent();
+            continuing = false;
+           TeacherCB.Visibility = Visibility.Hidden;
+
             courses = courseList;
 
-            InitializeComponent();
-
+            
              for (int i = 0; i < courses.Count; i++)
              {
-            SignInComboBox.Items.Add(courses[i]);
-            //SignInComboBox.Items.Add(myvar);
+                SignInComboBox.Items.Add(courses[i]);
+                TeacherCB.Items.Add("Teacher "+i);// HERE IS WHERE I WE ARE POPULATING THE TEACHER LIST FOR THE DROPDOWN BOX
              }
+             TeacherCB.SelectedIndex = 0;
              SignInComboBox.SelectedIndex = 0;
         }
 
-        private void Action_Cancel(object sender, RoutedEventArgs e)//@@@@@@@@@@@ HANDLE BUG HERE: CANCELING DOES NOTHING TO STOP THE PROGRAM FROM READING IN A BLANK OBJECT ANYWAYS AND ENTERING A DEFAULT STUDENT
+        private void Action_Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -44,20 +48,32 @@ namespace TL_Plus
 
         private void Action_Check_In(object sender, RoutedEventArgs e)
         {// THIS FUNCTION IS CALLED WHEN THE STUDENT CLICKS THE CHECK IN BUTTON ON THE POP UP PAGE
+            continuing = true;
+            
 
-            // TO DO: SAVE THE DATA ENTERED IN THE FIELDS INTO THESE VARIABLES - CREATE OBJECT INITIALIZED WITH THESE VALUES
-
-            string _ANum = SignInANum.Text; 
+            string Name = SignInName.Text; 
             string _Class = (SignInComboBox.SelectedItem).ToString();// parse selecteditem object into string
             if (_Class == "") { _Class = "-None Selected-"; }
             string _problem = SignInProblem.Text;
-           MainWindow.writeCheckInData(_ANum,_Class, _problem);
-            // TODO: send info to database
+            string teacher = (TeacherCB.SelectedItem).ToString();
+           MainWindow.writeCheckInData(Name,_Class, _problem, teacher);
            //MySQLConnect connect = new MySQLConnect() ;
            //connect.Insert(_ANum, "12:15", "1:15", _Class, "Bob", "tangled", "blue");
            this.Close();
 
         }
+
+
+        private void SignInComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SignInComboBox.SelectedItem.ToString() != "-None Selected-")
+            {
+                TeacherCB.Visibility = Visibility.Visible;//
+
+            }
+        }
+
+
 
     }
 }

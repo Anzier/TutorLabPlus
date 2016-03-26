@@ -24,19 +24,19 @@
             <Button Content="Check In" Name="checkInOut" PreviewMouseDown="AddStudent" Height="47" Canvas.Left="277" Canvas.Top="125" Width="194"/>
             <Button Content="Tutor Competion" Name="TutorButton" PreviewMouseDown="TutorControls" Height="47" Canvas.Left="277" Canvas.Top="177" Width="194"/>
             <TextBox Name="StudentInLabLabel"  HorizontalAlignment="Left" Height="20" BorderThickness="0" TextWrapping="Wrap" Text="Text"  IsReadOnly ="True" VerticalAlignment="Top" Width="270" Background="{x:Null}" Canvas.Left="22" Canvas.Top="677"/>
-            <RichTextBox Height="301" Canvas.Left="492" Canvas.Top="125" Width="465">
+            <RichTextBox Height="383" Canvas.Left="750" Canvas.Top="125" Width="207">
                 <FlowDocument>
                     <Paragraph>
-                        <Run Text="Instructions to fellow developers:"/>
+                        <Run Text="Instructions:"/>
                     </Paragraph>
                     <Paragraph>
-                        <Run Text="when no one is selected, the top button is 'check in'. when a user is selected, that same button changes to 'check out'."/>
+                        <Run Text="students: to check in select 'check in', and complete the form. To check out, select your name in the list and click 'check out'"/>
                     </Paragraph>
                     <Paragraph>
-                        <Run Text="changing the background color (to grey out students who finished) was a royal nightmare and waste of 4 hours for trying, so now it simply displays [removed]"/>
+                        <Run Text="Tutors: if a name displays '[checked out]', they are finished with help and their session needs to be reviewed and completed by you before it is saved. Selecting a completed user then clicking on 'tutor completion' will bring you to the page."/>
                     </Paragraph>
                     <Paragraph>
-                        <Run Text="Tutor completion is also a dual-use button. If a user is selected AND the top button displays 'check in' (can only happen if that user has already checked out) the tutor completion button will take you to the final submission form for the tutor. If you aren't selecting a finished student, it will take you to the verification tutor page."/>
+                        <Run Text="Tutor completion is also a dual-use button. If no user is selected the tutor completion button will take you to the tutor page."/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>

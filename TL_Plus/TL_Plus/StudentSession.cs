@@ -9,26 +9,16 @@ namespace TL_Plus
 {
    public class StudentSession
     {
-        //StudentSession(){
-        //    Class = "";
-        //    ANumber = "";
-        //    Name = "";
-        //    S_ProbDesc = "";
-        //    T_ProbDesc = "";
-        //    startTime = 0;
-        //    endTime = 0;
-        //}
-       public StudentSession(string _ANum, string _Class, string _problem)
+       public StudentSession(string name, string _Class, string _problem, string teacher)
         {
             active = true;
             Class = _Class;
-            ANumber = _ANum;
-            Name = "";// awaiting the database to return name
+            Name = name;
             S_ProbDesc = _problem;
             T_ProbDesc = "";// awaiting final submission to be saved
             startTime = DateTime.Now.ToString();
             endTime = "-1";// to be written on final submission
-            Teacher = "Dan Watson";
+            Teacher = teacher;
         }
 
 
@@ -67,15 +57,6 @@ namespace TL_Plus
         {
             return Name;// CHANGE THIS BACK TO NAME ONCE WE FINALIZE DATABASE
         }
-       // A NUMBER
-       public void SetANum(string name)
-       {
-           ANumber = name;
-       }
-       public string getANum()
-       {
-           return ANumber;
-       }
        // TUTOR PROBLEM DESCRIPTION
        public void SetTutorDescription(string desc)
        {
@@ -117,7 +98,6 @@ namespace TL_Plus
         string startTime;
         string endTime;
         string Class;
-        string ANumber;
         string Name;
         string S_ProbDesc;//students problem description (may need better variable that holds more data)
         string T_ProbDesc;// tutors description of the problem at the end.

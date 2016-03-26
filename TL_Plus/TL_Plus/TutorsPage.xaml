@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Tutor's Hideout" Height="519" Width="802">
     <Grid>
-        <Label Content="You've made it this far! Welcome to the Champions Guild!" HorizontalAlignment="Left" Height="31" Margin="105,15,0,0" VerticalAlignment="Top" Width="421" FontSize="16"/>
+        <Label Content="You've made it this far! You must be cool!" HorizontalAlignment="Left" Height="31" Margin="105,15,0,0" VerticalAlignment="Top" Width="421" FontSize="16"/>
         <Button Background="Snow" PreviewMouseDown="Action_Exit" Content="Exit" HorizontalAlignment="Left" Height="29" Margin="521,450,0,0" VerticalAlignment="Top" Width="126"/>
         <Button Background="SteelBlue" PreviewMouseDown="Action_Save"  Content="Save" HorizontalAlignment="Left" Height="29" Margin="652,450,0,0" VerticalAlignment="Top" Width="132"/>
         <Label Content="Tutor shift Schedule (Next two weeks" HorizontalAlignment="Left" Height="26" Margin="309,107,0,0" VerticalAlignment="Top" Width="318" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>

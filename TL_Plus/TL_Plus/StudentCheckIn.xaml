@@ -4,16 +4,16 @@
         Title="StudentLogin" Height="451" Width="312">
     <Grid>
         <Label Content="Sign In" HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" VerticalAlignment="Top" Width="267" FontSize="16"/>
-        <Label Content="A-Number" HorizontalAlignment="Left" Height="26" Margin="10,46,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
-        <TextBox x:Name="SignInANum" HorizontalAlignment="Left" Height="25" Margin="10,72,0,0" TextWrapping="Wrap" Text="A01234567" VerticalAlignment="Top" Width="267"/>
+        <Label Content="Full Name: (e.g. Dan Watson)" HorizontalAlignment="Left" Height="26" Margin="10,46,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
+        <TextBox x:Name="SignInName" HorizontalAlignment="Left" Height="25" Margin="10,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
         <!-- IsEditable="True" IsReadOnly="True" Text=" Class:" (possibly add to combo box to inset the class text as a default) -->
-        <ComboBox x:Name ="SignInComboBox" HorizontalAlignment="Left" Height="30" Margin="10,127,0,0" VerticalAlignment="Top" Width="267"/>
-        <Label Content="Class:" HorizontalAlignment="Left" Height="26" Margin="10,102,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
-        <Label Content="Reason For Tutor Help:" HorizontalAlignment="Left" Height="26" Margin="10,162,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
-        <TextBox x:Name="SignInProblem" HorizontalAlignment="Left" Height="136" Margin="10,188,0,0" TextWrapping="Wrap" Text="Please be descriptive" VerticalAlignment="Top" Width="267"/>
+        <ComboBox x:Name ="SignInComboBox" HorizontalAlignment="Left" Height="30" Margin="10,127,0,0" VerticalAlignment="Top" Width="267" SelectionChanged="SignInComboBox_SelectionChanged"/>
+        <Label Content="Class:" HorizontalAlignment="Left" Height="26" Margin="10,102,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray" />
+        <Label Content="Reason For Tutor Help:" HorizontalAlignment="Left" Height="26" Margin="10,202,0,0" VerticalAlignment="Top" Width="280" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
+        <TextBox x:Name="SignInProblem" HorizontalAlignment="Left" Height="136" Margin="10,233,0,0" TextWrapping="Wrap" Text="Please be descriptive" VerticalAlignment="Top" Width="267"/>
         <Button Background="Snow" PreviewMouseDown="Action_Cancel" Content="Cancel" HorizontalAlignment="Left" Height="29" Margin="10,374,0,0" VerticalAlignment="Top" Width="126"/>
         <Button Background="SteelBlue" PreviewMouseDown="Action_Check_In"  Content="Check In" HorizontalAlignment="Left" Height="29" Margin="158,374,0,0" VerticalAlignment="Top" Width="132"/>
-
+        <ComboBox x:Name ="TeacherCB" HorizontalAlignment="Left" Height="30" Margin="10,167,0,0" VerticalAlignment="Top" Width="267"/>
 
 
     </Grid>
