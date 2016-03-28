@@ -5,9 +5,6 @@ var express 		    = require('express')
   , request				= require('request')
   , bodyParser			= require('body-parser')
   , indexRoutes			= require('./routes/index')
-  , MongoClient         = require('mongodb').MongoClient
-  , db                  = require('./db')
-  , Users               = require('./models/users')
   , jade                = require('jade')
 
 var app = express();

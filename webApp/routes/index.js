@@ -92,6 +92,14 @@ router.get('/data/:id', function(req,res){
         "date":"20160315",
         "count":2
       },
+      {
+        "date":"20160322",
+        "count":2
+      },
+      {
+        "date":"20160323",
+        "count":15
+      },
   	]
   }
 	res.send(fakeData);

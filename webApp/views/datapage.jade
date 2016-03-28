@@ -182,13 +182,13 @@ html
 									  .domain(d3.extent(counts))
 									  .range([h, 75]);
 									var area = d3.svg.area()
-									  .interpolate('bundle')
+									  .interpolate('basis')
 									  .x(function (d) {
 									    return x(d.date);
 									  })
 									  //bottom for area
 									  .y0(function (d) {
-									    return y(0);
+									  	return y(0);
 									  })
 									  //top for area
 									  .y1(function (d) {
@@ -206,12 +206,12 @@ html
 													.orient('left');
 									//remove old chart so we can append to a fresh one
 									svg.selectAll('*').remove();
-									//add x-axis
+									//add y-axis
 									svg.append('g')
 										.attr('class','y axis')
 										.attr('transform', 'translate(-20, '+0+')')
 										.call(yAxis)
-									//add y-axis
+									//add x-axis
 									svg.append('g')
 										.attr('class','x axis')
 										.attr('transform', 'translate(0, '+(h+30)+')')
@@ -247,8 +247,7 @@ html
 
 
 								}
-				div.gt-squeeze
-					div.gt-home-form				
+				div.gt-squeeze#lowerbuttons			
 						button(class="btn",type="submit", onclick="updateChart('weekly')", id = 'weekly').
 							Week
 						//in monthly view, if tuesday is clicked, so all tuesday data

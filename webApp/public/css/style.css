@@ -167,6 +167,10 @@ input{
   margin-left: 50px;
 }
 
+#lowerbuttons{
+  text-align:center;
+}
+
 /*------------------------------------*\
               ¡TYPOGRAPHY
 \*------------------------------------*/
