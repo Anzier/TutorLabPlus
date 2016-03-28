@@ -5,23 +5,10 @@ html
 		script(src='http://d3js.org/d3.v3.min.js')
 		script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js")			
-		script(type = 'text/javascript').
-			//$(document).ready(function(){
-			//	alert("JQUERY UP")
-			//})
-			//$.get('http://127.0.0.1:3000/data',function(data){
-			//	$('body').append('Test')
-			//})
-			//this was in the body
-			//script(type = 'text/javascript').
-			//getting the data from the node server (could this also be passed directly though for d3 to access?)
-				//$.get('http://127.0.0.1:3000/data',function(data){
-				//	$('#gt-home-form').append(data.x)
-				//})
 	body
 				div.gt-squeeze
 						div.gt-home-form#chartArea
-							p.gt-title LOGGED IN #{anum}
+							p.gt-title LOGGED IN #{lname}
 							//update chart to previous month onclick
 							button(class="btn",type="submit", id = 'previous',onclick="updateChart('previous')").
 								<<
@@ -50,86 +37,48 @@ html
 											.attr('transform', 'translate(' + 250 + ', ' + 100 + ')')
 								var h = 500;
 								var w = 500;
-								var professors;
-								var anum = "#{anum}";
-								anum = anum.replace(/&quot;/g, '')
+								var data;
+								var lname = "#{lname}";
+								lname = lname.replace(/&quot;/g, '')
 								var today = new Date();
 								var currMonth = today.getMonth();
 								var currDay   = moment(today);
-								//i suppose we can currently leave this the way it is, we'll see depending on what the data looks like
-								//this needs to get the data only associated with the specific professor
-								//can i break this data up by weeks in the front end?
-								$.getJSON('http://127.0.0.1:3000/data/'+anum,function(json){
-								//this should return dates and counts now, without need for professor
-									professors = json;
-									_.keys(professors).forEach(function(professor){
-										professors[professor].forEach(function(d){
-											d.date = d3.time.format('%Y%m%d').parse(d.date);
-										})
+								$.getJSON('http://127.0.0.1:3000/data/'+lname,function(json){
+									console.log(json.Watson)
+									data = json.Watson;
+									json.Watson.forEach(function(d){
+										d.date = d3.time.format('%Y%m%d').parse(d.date);
 									})
-									//- path = d3.select('.gt-home-form')
-									//- 			.append('svg')
-									//- 			.attr('width','100%')
-									//- 			.attr('height','100%')
-									//- 			.append('g')
-									//- 			.attr('transform', 'translate(' + 250 + ', ' + 100 + ')')
-												//.append('path')
-
 									//show some kind of general chart
 									updateChart();
 
 								})
-								//this is going to need a different funcionality
-								//data needs to change based on a monthly, weekly, daily view
-								//not professor.   above we should only get data associated with professor Anumber
-								function updateChart (type) {
-									console.log(type);	
-									var data = professors[anum];
+								function updateChart (type) {	
+									//this currently breaks as there is no data.
+									//- var data = professors[lname];
 									var todayDate = moment(today);
 									var testToday = moment(today);
-									//var testDate = moment(dates[dates.length])
-									//these are in the same week
-									//console.log(todayDate.isSame(testDate,"week"))
-									//- var testDate = moment(dates[dates.length]);
-									//console.log(testDate);
-									//console.log(todayDate);
-									//console.log('is this? ' +  moment(todayDate.isSame(testDate,'week')))
 									if(typeof type !== 'undefined'){
 										if(type.view === "monthly" && typeof type.nav === "undefined"){
-											prevView = "monthly"
+											prevView = "monthly";
 											//change title to reflect user selection
 											$('.gt-title').text(monthNames[today.getMonth()])
-											data = data.filter(function(d){
-												if(today.getMonth()===d.date.getMonth()){
-													return d;
-												}
-											})
+											//query db for all monthly data associated with lName
+											//we're probably going to need specific data endpoints for each query
 										}else if(type.view === "weekly" && typeof type.nav === "undefined"){
+											prevView = "weekly";
 											$('.gt-title').text("Weekly View")
-											if(prevView === "monthly"){
-												console.log("switched from a monthly view");
-											}else{
-												data = data.filter(function(d){
-													if(todayDate.isSame(moment(d.date),"week")){
-														return d;
-													}
-												})
-											}
-											prevView = "weekly"
+											//query db for all weekly data associated with lName
 										}
 										if(type.nav === "previous" && type.view === "monthly"){
-											console.log(currMonth);
 											if(currMonth == 0){
 												currMonth = 11;
 											}else{
 												currMonth--;										
 											}
+											//currMonth tells us which month to query for
 											$('.gt-title').text(monthNames[currMonth])
-											data = data.filter(function(d){
-												if(currMonth===d.date.getMonth()){
-													return d;
-												}
-											})
+											//query db for previous month.
 										}
 										if(type.nav === "next" && type.view === "monthly"){
 											if(currMonth==11){
@@ -137,40 +86,24 @@ html
 											}else{
 												currMonth++;										
 											}
+											//currMonth tells us which month to query for.
 											$('.gt-title').text(monthNames[currMonth])
-											data = data.filter(function(d){
-												if(currMonth===d.date.getMonth()){
-													return d;
-												}
-											})
+											//query db for next month.
 										}
 										if(type.nav === "previous" && type.view === "weekly"){
-											//if there is no data, just keep calling this until there is.
+											//this variable tells us what day the graph thinks it is, so query for this day.
 											currDay = moment(currDay).subtract(7,'day');
 											$('.gt-title').text("Weekly View")		
-											//if i wanted to show months, but I feel its misleading
-											//$('.gt-title').text(monthNames[currDay.month()])
-											data = data.filter(function(d){
-												if(currDay.isSame(moment(d.date),"week")){
-													return d;
-												}
-											})
-											//this solution doesn't work
-											//i was trying to just keep running the update on the chart until there was actual data to display to the user
-											//- if(data.length === 0){
-											//- 	updateChart(viewtype);
-											//- }
+											//query db for previous week NOTE: if there is not data, query for the next availible weekly data.
 										}
 										if(type.nav === "next" && type.view === "weekly"){
+											//this variable tells us what day the graph thinks it is, so query for this day.
 											currDay = moment(currDay).add(7,'day');
 											//$('.gt-title').text(monthNames[currDay.month()])
-											data = data.filter(function(d){
-												if(currDay.isSame(moment(d.date),"week")){
-													return d;
-												}
-											})
+											//query db for previous week NOTE: if there is not data, query for the next availible weekly data.
 										}								
 									}
+									//same code for displaying the graph, only difference is we don't need to filter anymore (yay!)
 									var dates = _.map(data, 'date');
 									var counts = _.map(data, 'count');
 									var x = d3.time.scale()
@@ -244,8 +177,6 @@ html
 										.duration(800)
 										.attr('d',area)
 										.style('opacity',1)
-
-
 								}
 				div.gt-squeeze#lowerbuttons			
 						button(class="btn",type="submit", onclick="updateChart('weekly')", id = 'weekly').
@@ -264,10 +195,3 @@ html
 							delete viewtype.nav
 							updateChart(viewtype)
 						})
-
-
-
-
-
-
-	

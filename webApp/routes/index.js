@@ -5,6 +5,12 @@ var session = require('express-session')
 var router = express.Router();
 var mysql = require('mysql')
 
+var profList = ['Allan','Watson','Lee','Cheng',
+'Christensen','Clyde','DuHadway','Dyreson','Flann',
+'Hansen','Holdaway','Hughes','Jiang','Kulyukin',
+'Kwon','Mano','Masco','Mathias','Nguyen','Qi',
+'Sundberg','Willis']
+
 var connection = mysql.createConnection({
   host    : 'se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com',
   user    : 'Mach5',
@@ -26,14 +32,13 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
 	var form = req.body
-	//check is against the schools list of valid employee Anumbers
-	//if they are good, route them to a webpage based on their classes.
-	if(false){
+	//check this against a valid list of professors last names
+	if(profList.indexOf(form.lName) === -1){
 		res.render('profLogin',{
-			error_message: "Invalid A-number"
+			error_message: "Invalid Login"
 		})
 	}else{
-		return res.redirect(form.a_number);
+		return res.redirect(form.lName);
 	}
 
 })
@@ -45,7 +50,7 @@ router.get('/data/:id', function(req,res){
   //here i'll create a json object with dates and a count and serve it up
   //these need to be sorted on date before being passed
   var fakeData = {
-  	"A01281942":
+  	"Watson":
   	[
    		{
   			"date":"20160104",
@@ -105,9 +110,10 @@ router.get('/data/:id', function(req,res){
 	res.send(fakeData);
 })
 
-router.get('/:anum', function(req,res){
+router.get('/:lname', function(req,res){
+  //lets render something else here, get a fresh start to the page design
 	res.render('datapage',{
-		anum: JSON.stringify(req.params.anum)
+		lname: JSON.stringify(req.params.lname)
 	});
 })
 
