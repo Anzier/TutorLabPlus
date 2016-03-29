@@ -51,7 +51,6 @@ html
 									})
 									//show some kind of general chart
 									updateChart();
-
 								})
 								function updateChart (type) {	
 									//this currently breaks as there is no data.
@@ -65,10 +64,26 @@ html
 											$('.gt-title').text(monthNames[today.getMonth()])
 											//query db for all monthly data associated with lName
 											//we're probably going to need specific data endpoints for each query
+																						//query db for all weekly data associated with lName
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currMonth,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})
 										}else if(type.view === "weekly" && typeof type.nav === "undefined"){
 											prevView = "weekly";
 											$('.gt-title').text("Weekly View")
-											//query db for all weekly data associated with lName
+											var currDayQuery = currDay.format('MM_DD_YYYY');
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currDayQuery,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})
+
 										}
 										if(type.nav === "previous" && type.view === "monthly"){
 											if(currMonth == 0){
@@ -79,6 +94,13 @@ html
 											//currMonth tells us which month to query for
 											$('.gt-title').text(monthNames[currMonth])
 											//query db for previous month.
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currMonth,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})											
 										}
 										if(type.nav === "next" && type.view === "monthly"){
 											if(currMonth==11){
@@ -89,18 +111,41 @@ html
 											//currMonth tells us which month to query for.
 											$('.gt-title').text(monthNames[currMonth])
 											//query db for next month.
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currMonth,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})												
 										}
 										if(type.nav === "previous" && type.view === "weekly"){
 											//this variable tells us what day the graph thinks it is, so query for this day.
 											currDay = moment(currDay).subtract(7,'day');
-											$('.gt-title').text("Weekly View")		
+											$('.gt-title').text("Weekly View")
+											var currDayQuery = currDay.format('MM_DD_YYYY');		
 											//query db for previous week NOTE: if there is not data, query for the next availible weekly data.
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currDayQuery,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})	
 										}
 										if(type.nav === "next" && type.view === "weekly"){
 											//this variable tells us what day the graph thinks it is, so query for this day.
 											currDay = moment(currDay).add(7,'day');
 											//$('.gt-title').text(monthNames[currDay.month()])
 											//query db for previous week NOTE: if there is not data, query for the next availible weekly data.
+											var currDayQuery = currDay.format('MM_DD_YYYY');
+											$.getJSON('http://127.0.0.1:3000/data/'+lname+'/'+currDayQuery,function(json){
+												console.log(json.Watson)
+												data = json.Watson;
+												json.Watson.forEach(function(d){
+													d.date = d3.time.format('%Y%m%d').parse(d.date);
+												})
+											})	
 										}								
 									}
 									//same code for displaying the graph, only difference is we don't need to filter anymore (yay!)
