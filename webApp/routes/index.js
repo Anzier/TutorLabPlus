@@ -45,10 +45,10 @@ router.post('/', function(req, res) {
 
 })
 router.get('/data/:id/:date', function(req,res){
+  //these queries need to be professor specific
   var date = req.params.date
   var querystring;
   if(date.length > 2){
-      //load the querystring here
       //query for +- 3 days from this date.
       date = date.replace(/_/g, '/')
       var upperDate = moment(date).format('MM/DD/YYYY');
@@ -57,22 +57,24 @@ router.get('/data/:id/:date', function(req,res){
       lowerDate = moment(lowerDate).subtract(3,'day');
       upperDate = upperDate.format('MM/DD/');
       lowerDate = lowerDate.format('MM/DD/');
-      console.log(lowerDate)
+      //remove preceding 0's to format similar to SQL timeIn string
+      if(upperDate.charAt(0) === '0'){
+        upperDate = upperDate.substr(1);
+      }
+      if(lowerDate.charAt(0) === '0'){
+        lowerDate = lowerDate.substr(1);
+      }
       querystring = 'select * from studentSessions where timeIn between \''+lowerDate+'%\' and \''+upperDate+'%\''
-      console.log(querystring)
     }else{
       //query for month data
       date++;
-      //this query needs to be professor specific
-      // querystring = 'select * from studentSessions where timeIn like \''+date+'/%\'';  
       querystring = 'select * from studentSessions where timeIn like \''+date+'/%\'';
   }
   connection.query(querystring,function(err,data){
-      //here we need to build the JSON object
+      //here we need to build the JSON object based on the queries to make it look like fakeData
       if(err) throw err;
       console.log(data)
-    })
-  // console.log(date)
+  })
   // CSP headers
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "X-Requested-With");
@@ -138,12 +140,6 @@ router.get('/data/:id/:date', function(req,res){
   }
   res.send(fakeData);
 })
-
-
-
-
-
-
 
 
 router.get('/data/:id', function(req,res){
