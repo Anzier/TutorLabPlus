@@ -16,8 +16,8 @@ namespace TL_Plus
             Name = name;
             S_ProbDesc = _problem;
             T_ProbDesc = "";// awaiting final submission to be saved
-            startTime = DateTime.Now.ToString();
-            endTime = "-1";// to be written on final submission
+            startTime = DateTime.Now;
+            endTime = DateTime.Now;// to be written on final submission
             Teacher = teacher;
         }
 
@@ -31,20 +31,20 @@ namespace TL_Plus
            return active;
        }
        // START TIME
-       public void SetStartTime(string time)
+       public void SetStartTime(DateTime time)
        {
            startTime = time;
        }
-       public string GetStartTime()
+       public DateTime GetStartTime()
        {
            return startTime;
        }
        // END TIME
-       public void SetEndTime(string time)
+       public void SetEndTime(DateTime time)
         {
             endTime = time;
         }
-       public string GetEndTime()
+       public DateTime GetEndTime()
         {
             return endTime;
         }
@@ -95,8 +95,8 @@ namespace TL_Plus
        }
 
         bool active;
-        string startTime;
-        string endTime;
+        DateTime startTime;
+        DateTime endTime;
         string Class;
         string Name;
         string S_ProbDesc;//students problem description (may need better variable that holds more data)

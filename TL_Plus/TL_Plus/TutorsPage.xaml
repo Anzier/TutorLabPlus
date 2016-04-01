@@ -1,28 +1,21 @@
-﻿<Window x:Class="TL_Plus.TutorsPage"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Tutor's Hideout" Height="519" Width="802">
-    <Grid>
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TL_Plus.TutorsPage"
+        Title="Tutor's Hideout" Height="562" Width="802">
+    <Grid Margin="0,44,0,0" Height="505" VerticalAlignment="Top">
         <Label Content="You've made it this far! You must be cool!" HorizontalAlignment="Left" Height="31" Margin="105,15,0,0" VerticalAlignment="Top" Width="421" FontSize="16"/>
         <Button Background="Snow" PreviewMouseDown="Action_Exit" Content="Exit" HorizontalAlignment="Left" Height="29" Margin="521,450,0,0" VerticalAlignment="Top" Width="126"/>
         <Button Background="SteelBlue" PreviewMouseDown="Action_Save"  Content="Save" HorizontalAlignment="Left" Height="29" Margin="652,450,0,0" VerticalAlignment="Top" Width="132"/>
         <Label Content="Tutor shift Schedule (Next two weeks" HorizontalAlignment="Left" Height="26" Margin="309,107,0,0" VerticalAlignment="Top" Width="318" RenderTransformOrigin="0.554,-0.636" Foreground="DarkGray"/>
-        <DataGrid Height="234" Margin="146,168,0,0" VerticalAlignment="Top" RowHeight="10" MinRowHeight="4" HorizontalAlignment="Left" Width="501">
+        <DataGrid AutoGenerateColumns="False" Name="DataGridTest" CanUserAddRows="True" ItemsSource="{Binding TestBinding}" Margin="0,50,0,0" >
             <DataGrid.Columns>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
-                <DataGridTextColumn/>
+                <DataGridTextColumn Header="mon" IsReadOnly="True" Binding="{Binding Path=day1}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="tue" IsReadOnly="True" Binding="{Binding Path=day2}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="wed" IsReadOnly="True" Binding="{Binding Path=day3}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="thu" IsReadOnly="True" Binding="{Binding Path=day4}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="fri" IsReadOnly="True" Binding="{Binding Path=day5}" Width="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="sat" IsReadOnly="True" Binding="{Binding Path=day6}" Width="50"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

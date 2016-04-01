@@ -20,6 +20,7 @@ namespace TL_Plus
     /// </summary>
     public partial class TutorCompetion : Window
     {
+        DateTime start;
         StudentSession publicObject;
         public bool continuing;
         public TutorCompetion(StudentSession inc_app)// incomplete application
@@ -34,9 +35,10 @@ namespace TL_Plus
             t_class.Text = inc_app.getClass();
             t_SignInProblem.Text = inc_app.GetStudentDescription();
             t_tutorFeedback.Text = "";
-            t_startTime.Text = inc_app.GetStartTime(); ;
+            t_startTime.Text = inc_app.GetStartTime().ToString(); ;
             t_endTime.Text = DateTime.Now.ToString();
-            inc_app.SetEndTime(t_endTime.Text);
+            inc_app.SetEndTime(DateTime.Now);
+            start = inc_app.GetStartTime();
         }
         private void Action_Cancel(object sender, RoutedEventArgs e)
         {
@@ -54,9 +56,9 @@ namespace TL_Plus
 
             publicObject.setTeacher(t_teacher.Text);
             publicObject.setClass(t_class.Text);
-            publicObject.SetEndTime(t_endTime.Text);
+            publicObject.SetEndTime(DateTime.Now);
             publicObject.SetName(t_name.Text);
-            publicObject.SetStartTime(t_startTime.Text);
+            publicObject.SetStartTime(start);
             publicObject.SetStudentDescription(t_SignInProblem.Text);
             publicObject.SetTutorDescription(t_tutorFeedback.Text);
 
@@ -71,7 +73,7 @@ namespace TL_Plus
             name = name.ToUpper();
             MySQLConnect connect = new MySQLConnect() ;
             connect.Insert(publicObject.getName().ToUpper(), publicObject.getClass().ToUpper(), publicObject.getTeacher().ToUpper(),
-                publicObject.GetStartTime().ToUpper(), publicObject.GetEndTime().ToUpper(), publicObject.GetStudentDescription().ToUpper(),
+                publicObject.GetStartTime(), publicObject.GetEndTime(), publicObject.GetStudentDescription().ToUpper(),
                 publicObject.GetTutorDescription().ToUpper());// ALL CONTENT STORED IN THE DATABASE WILL BE CONVERTED TO UPPERCASE STANDARDIZATION
 
 
