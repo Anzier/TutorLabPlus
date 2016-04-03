@@ -10,8 +10,10 @@
 ********************/
   .axis path, .axis line {
       fill: none;
-      stroke: #a8f2c3;
-      stroke-width: 1px;
+      stroke:#0B699E;
+      /*old color*/
+      /*stroke: #a8f2c3;*/
+      stroke-width: 5px;
       shape-rendering: crispEdges;
   }
 
@@ -31,8 +33,28 @@
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  height: 95%;
+  height: 86%;
   max-width: 1000px;
+}
+
+.gt-squeeze-graph {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 1000px;
+  height: 700px;
+  max-width: 1000px;
+}
+
+
+.gt-lowerButton {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  height: 86%;
+  max-width: 1000px;
+  max-height: 100px;
 }
 
 .gt-home-form{
@@ -62,7 +84,9 @@
   left:50%;
   width: 500px;
   margin-left: -250px; /* Half the width */
-  color: #ffd2aa;
+  color:#E9BC24;
+  /*old color*/
+  /*color: #ffd2aa;*/
 }
 .gt-squeezeNoMore {
   position: relative;
@@ -122,12 +146,16 @@ input{
 #chartArea {
   width:1000px;
   height:1000px;
-  background-color: #b296a2;
+  background-color:#EB3029;
+  /*old colors*/
+  /*background-color: #b296a2;*/
 }
 
 .active {
-      fill: #9a004b;
-      fill-opacity: 0.5;
+      fill:#0B699E;
+      /*old color*/
+      /*fill: #9a004b;*/
+      /*fill-opacity: 0.5;*/
       stroke-width: 3px;
 }
 /*------------------------------------*\
@@ -135,8 +163,10 @@ input{
 \*------------------------------------*/
 .btn {
   border-radius:7px;
-  background-color:  #e84724;
-  background-color:purple;
+  background-color: #A31C5F;
+  /*old colors*/
+  /*background-color:  #e84724;*/
+  /*background-color:purple;*/
   color:#fff;
   border: none;
   padding:10px;
@@ -149,7 +179,9 @@ input{
 }
 
 .btn:hover{
-  background-color:#8fd4da;
+  background-color: #0B699E;
+  /*old color*/
+  /*background-color:#8fd4da;*/
 }
 
 .group-btn{
@@ -168,6 +200,9 @@ input{
 }
 
 #lowerbuttons{
+  margin-left:auto;
+  margin-right:auto;
+  width:960px;
   text-align:center;
 }
 
@@ -195,7 +230,7 @@ html {
 }
 
 body {
-  background: #fdfbef;
+  background: #EB3029;
   color: #494949;
   font-family: sans-serif;
   height: 100%;
@@ -400,8 +435,8 @@ section{
 -------------------------------------*/
 .gt-input-form{
   border-radius:7px;
-  color:#8fd4da;
-  border-color: solid 3px #f8f1c8;
+  color:#9D1D67;
+  border-color: solid 3px #9D1D67;
   padding:10px;
   margin:5px;
   font-size:1.25em;
