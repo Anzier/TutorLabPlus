@@ -1,0 +1,18 @@
+p 'hi this is the class data for that specific query'
+block content
+	div(id="body")
+		table(border='1')
+			thead
+				link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+				tr
+					th Class
+					th teacher ID
+					
+
+				tbody 
+					each item in items
+						tr
+							td=item.cName + ' '
+							td=item.tID + ' '
+							

@@ -1,0 +1,18 @@
+p 'THIS IS FOR TEACHER DATA LIST'
+block content
+	div(id="body")
+		table(border='1')
+			thead
+				link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+				tr
+					th teacher
+					th teacher ID
+					
+
+				tbody 
+					each item in items
+						tr
+							td=item.tName + ' '
+							td=item.tID + ' '
+			

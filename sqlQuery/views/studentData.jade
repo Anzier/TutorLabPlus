@@ -1,0 +1,38 @@
+p 'hi this is the student data'
+block content
+		table(border='4')
+			thead
+				link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+				tr
+					th Name
+					th Class
+					th TimeIn
+					th Teacher
+					th TimeOut
+					th Student Comment
+
+				tbody 
+					each item in items
+						tr
+							td=item.sName + ' '
+							td=item.class + ' '
+							td=item.timeIn +' '
+							td=item.teacher + ' '
+							td=item.timeOut +' '
+							td=item.sComment + ' '
+
+	//div.tablebody
+	//- 	table(border='1')
+	//- 		thead
+	//- 			link(href="/css/style.css", rel="stylesheet", type="text/css")
+	//- 			tr
+	//- 				th Student Name
+	//- 				th Teacher
+	//- 			tbody
+					
+	//- 				each item in items 
+	//- 					tr
+	//- 						if (item.teacher == 'Dan Watson')
+	//- 							td=item.sName + ''
+	//- 							td=item.teacher + ''

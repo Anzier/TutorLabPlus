@@ -1,0 +1,32 @@
+html
+	block content
+	div(id="body")
+		each item, index in items
+			if (index === 1)
+				h1 The overall student sessions for #{item.teacher}
+			if (index+1 === items.length)
+				li=items.length
+		li The above is the total number of people who need help
+
+		block content
+		table(border='4')
+			thead
+				link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+				tr
+					th Name
+					th Class
+					th TimeIn
+					th Teacher
+					th TimeOut
+					th Student Comment
+
+				tbody 
+					each item in items
+						tr
+							td=item.sName + ' '
+							td=item.class + ' '
+							td=item.timeIn +' '
+							td=item.teacher + ' '
+							td=item.timeOut +' '
+							td=item.sComment + ' '

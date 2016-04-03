@@ -1,0 +1,18 @@
+p 'hi this is the class and teacher combo'
+block content
+	div(id="body")
+		table(border='1')
+			thead
+				link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+				tr
+					th Class
+					th teacher Name
+					
+
+				tbody 
+					each item in items
+						tr
+							td=item.cName + ' '
+							td=item.tName + ' '
+							
