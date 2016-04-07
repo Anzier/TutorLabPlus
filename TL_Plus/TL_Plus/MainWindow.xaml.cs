@@ -160,7 +160,6 @@ namespace TL_Plus
             }
 
 
-            //MessageBox.Show("Sorry Wilfred, The tutor Access isn't complete yet");
             TutorVerification Tlogin = new TutorVerification();
             Tlogin.Owner = this;
             Tlogin.ShowDialog();

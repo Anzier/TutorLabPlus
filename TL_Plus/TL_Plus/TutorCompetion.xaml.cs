@@ -72,8 +72,8 @@ namespace TL_Plus
             string name = "nanem";
             name = name.ToUpper();
             MySQLConnect connect = new MySQLConnect() ;
-            connect.Insert(publicObject.getName().ToUpper(), publicObject.getClass().ToUpper(), publicObject.getTeacher().ToUpper(),
-                publicObject.GetStartTime(), publicObject.GetEndTime(), publicObject.GetStudentDescription().ToUpper(),
+            connect.Insert(publicObject.getName().ToUpper().ToString(), publicObject.getClass().ToUpper(), publicObject.getTeacher().ToUpper(),
+                publicObject.GetStartTime().ToString(), publicObject.GetEndTime().ToString(), publicObject.GetStudentDescription().ToUpper(),
                 publicObject.GetTutorDescription().ToUpper());// ALL CONTENT STORED IN THE DATABASE WILL BE CONVERTED TO UPPERCASE STANDARDIZATION
 
 
