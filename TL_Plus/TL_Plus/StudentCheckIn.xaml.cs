@@ -20,6 +20,7 @@ namespace TL_Plus
     public partial class StudentCheckIn : Window
     {
         static List<string> courses;// predetermined list of classes offered at USU
+        static List<string> teachers;// predetermined list of Teachers at USU
         public bool continuing;
 
         public StudentCheckIn(List<string> courseList)// constructor, initializes the Gui, loads the combobox with the list of classes
@@ -28,13 +29,21 @@ namespace TL_Plus
             continuing = false;
            TeacherCB.Visibility = Visibility.Hidden;
 
-            courses = courseList;
+            //courses = courseList;  old code to hardcode the course list
+             MySQLConnect connectCourse = new MySQLConnect();//opens a new connection to the DB
+             courses = connectCourse.getClasses(); // Returns a list of the courses in the database as a list of strings.
 
-            
+             MySQLConnect connectTeachers = new MySQLConnect();//opens a new connection to the DB
+             teachers = connectCourse.getTeachers(); // Returns a list of the teachers in the database as a list of strings.
+
              for (int i = 0; i < courses.Count; i++)
              {
                 SignInComboBox.Items.Add(courses[i]);
-                TeacherCB.Items.Add("Teacher "+i);// HERE IS WHERE I WE ARE POPULATING THE TEACHER LIST FOR THE DROPDOWN BOX
+                //TeacherCB.Items.Add("Teacher "+i);// HERE IS WHERE I WE ARE POPULATING THE TEACHER LIST FOR THE DROPDOWN BOX
+             }
+             for (int i = 0; i < teachers.Count; i++)
+             {
+                 TeacherCB.Items.Add(teachers[i]);
              }
              TeacherCB.SelectedIndex = 0;
              SignInComboBox.SelectedIndex = 0;

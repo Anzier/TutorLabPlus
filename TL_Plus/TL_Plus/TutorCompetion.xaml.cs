@@ -69,13 +69,12 @@ namespace TL_Plus
               //  + publicObject.GetStartTime() + "\n end Time: " + publicObject.GetEndTime()
               //  + "\n Name: (not yet handled)");
 
-            string name = "nanem";
-            name = name.ToUpper();
+            //string name = "nanem";
+           // name = name.ToUpper();
             MySQLConnect connect = new MySQLConnect() ;
             connect.Insert(publicObject.getName().ToUpper().ToString(), publicObject.getClass().ToUpper(), publicObject.getTeacher().ToUpper(),
                 publicObject.GetStartTime().ToString(), publicObject.GetEndTime().ToString(), publicObject.GetStudentDescription().ToUpper(),
                 publicObject.GetTutorDescription().ToUpper());// ALL CONTENT STORED IN THE DATABASE WILL BE CONVERTED TO UPPERCASE STANDARDIZATION
-
 
             continuing = true;
             this.Close();

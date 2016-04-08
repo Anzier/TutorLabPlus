@@ -93,14 +93,57 @@ namespace TL_Plus
                 + "')";
             if (this.OpenConnection() == true)
             {
-                MessageBox.Show("Connection Opened");
+               // MessageBox.Show("Connection Opened");
                 MySqlCommand cmd = new MySqlCommand(studentInfo, connection);
                 cmd.ExecuteNonQuery();
+                CloseConnection();
             }
             else
             {
                 MessageBox.Show("Not Connected, can't use the force Vader");
             }
+        }
+        public List<string> getClasses(){
+            List<string> tempList = new List<string>();
+            tempList.Add("-None Selected-");
+            string query = "select cName from classList";
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader mdr = cmd.ExecuteReader();
+                while (mdr.Read())
+                {
+                    for(int i = 0; i< mdr.FieldCount; i++){
+                        string course;
+                        course = mdr.GetString(i);
+                        tempList.Add(course);
+                    }
+                }
+            }
+            CloseConnection();
+            return tempList;
+        }
+        //Returns a list of teachers currently in the DB.
+        public List<string> getTeachers()
+        {
+            List<string> tempList = new List<string>();
+            string query = "select tName from teacherList";
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader mdr = cmd.ExecuteReader();
+                while (mdr.Read())
+                {
+                    for (int i = 0; i < mdr.FieldCount; i++)
+                    {
+                        string teacher;
+                        teacher = mdr.GetString(i);
+                        tempList.Add(teacher);
+                    }
+                }
+            }
+            CloseConnection();
+            return tempList;
         }
     }
 }
