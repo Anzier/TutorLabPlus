@@ -28,6 +28,7 @@ html
 								var dates = {};
 								var formattedData = [];
 								var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+								var dayOfWeek = {0:'Sunday',1:'Monday',2:'Tuesday',3:'Wednesday',4:'Thursday',5:'Friday',6:'Saturday'};
 								var svg = d3.select('.gt-home-form')
 											.append('svg')
 											.attr('width','100%')
@@ -42,23 +43,50 @@ html
 								var today = new Date();
 								var currMonth = today.getMonth();
 								var currDay   = moment(today);
+								var maxDayMap = [];
+								maxDayMap[0] = 0;
+								maxDayMap[1] = 0;
+								maxDayMap[2] = 0;
+								maxDayMap[3] = 0;
+								maxDayMap[4] = 0;
+								maxDayMap[5] = 0;
+								maxDayMap[6] = 0;
 								var data = !{data}
+								var classes = !{courses}
+								//also should be able to get most busy day based on class.
+								//the class selector should probably requery the database...
+								//so if button pressed. route to page for specific course.
 								    data.forEach(function(studentSession){
 								        //this will be problematic with months 10,11,12.
 								        // console.log(studentSession.timeIn.substring(0,10));
-								        if(dates.hasOwnProperty(studentSession.timeIn.substring(0,9))){
-								          //console.log('date already in map');
-								          dates[studentSession.timeIn.substring(0,9)]++;
+								        if(dates.hasOwnProperty(studentSession.timeIn.substring(0,8))){
+								          dates[studentSession.timeIn.substring(0,8)]++;
 								        }else{
-								          dates[studentSession.timeIn.substring(0,9)]=1;
+								          dates[studentSession.timeIn.substring(0,8)]=1;
 								        }
 								    })
 								    for(date in dates){
+								    	//also get the value for each date and store it in the maxDayMap
 								    	var d = {};
 								    	d.date = d3.time.format('%m/%d/%Y').parse(date);
+								    	maxDayMap[d.date.getDay()] += dates[date];
 								    	d.count = dates[date];
 								    	formattedData.push(d);
 								    }
+								    //finding the max day
+								    var max = -9999999;
+								    var index;
+								    //we can hard code this, as the number of days in the week doesn't change.
+								    for(var i = 0;i<6;i++){
+								    	if(max < maxDayMap[i]){
+								    		max = maxDayMap[i]
+								    		index = i;
+								    	}
+								    }
+									var popularDay = document.createElement('paragraph');
+									popularDay.setAttribute('class','pull--right');
+									popularDay.textContent = dayOfWeek[index];
+									$('.gt-title').append(popularDay);
 									//- professors = json;
 									//- _.keys(professors).forEach(function(professor){
 									//- 	professors[professor].forEach(function(d){
@@ -72,7 +100,6 @@ html
 									//- 			.append('g')
 									//- 			.attr('transform', 'translate(' + 250 + ', ' + 100 + ')')
 												//.append('path')
-
 									//show some kind of general chart
 									updateChart();
 
@@ -81,10 +108,9 @@ html
 								//data needs to change based on a monthly, weekly, daily view
 								//not professor.   above we should only get data associated with professor Anumber
 								function updateChart (type) {
-									//- console.log(formattedData);
+									//filter data based on courses here.
+									//- console.log(type)
 									var data = formattedData;
-									//- var data = professors[lname];
-									//- console.log(professors[lname]);
 									var todayDate = moment(today);
 									var testToday = moment(today);
 									//var testDate = moment(dates[dates.length])
@@ -189,7 +215,7 @@ html
 									  //bottom for area
 									  //for some reason 0 is making the area over draw into the axes
 									  .y0(function (d) {
-									  	return y(2);
+									  	return y(1);
 									  })
 									  //top for area
 									  .y1(function (d) {
@@ -261,11 +287,30 @@ html
 						//update chart to next month onclick
 						button(class="btn",type="submit", id = 'next', onclick="updateChart('next')").
 							>>
+						//NOTE: I'll need to add one more thing to the object, a class name, so we can filter on the class name if necessary as well.
+						//mimic the other updateChart(viewtype) calls for this functionality
+						br
 					script.
 						$('#weekly').click(function(){
 							viewtype.view = "weekly"
 							delete viewtype.nav; 
 							updateChart(viewtype)
+						});
+						classes.forEach(function(course){
+							var newClass = document.createElement('button');
+							newClass.setAttribute('class','btn');
+							newClass.setAttribute('id','classes');
+							newClass.setAttribute('type','submit')
+							newClass.textContent = course.cName;
+							newClass.onclick = function(e){
+								location.href = '/WATSON/'+course.cName;
+								//- e.preventDefault();
+								//I think it would be better to do a post here instead.
+								//- viewtype.course = $(this).text();
+								//- delete viewtype.nav;
+								//- updateChart(viewtype);
+							}
+							document.getElementById('lowerbuttons').appendChild(newClass);
 						})
 						$('#monthly').click(function(){
 							viewtype.view = "monthly"
@@ -276,11 +321,11 @@ html
 							viewtype.nav = "previous"
 							updateChart(viewtype)
 						})
+
 						$('#next').click(function(){
 							viewtype.nav = "next"
 							updateChart(viewtype)
 						})
-
 
 
 

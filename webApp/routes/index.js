@@ -7,11 +7,11 @@ var mysql = require('mysql');
 var moment = require('moment')
 var _     = require('underscore')
 
-var profList = ['Allan','Watson','Lee','Cheng',
-'Christensen','Clyde','DuHadway','Dyreson','Flann',
-'Hansen','Holdaway','Hughes','Jiang','Kulyukin',
-'Kwon','Mano','Masco','Mathias','Nguyen','Qi',
-'Sundberg','Willis']
+var profList = ['ALLAN','WATSON','LEE','CHENG',
+'CHRISTENSEN','CLYDE','DUHADWAY','DYRESON','FLANN',
+'HANSEN','HOLDAWAY','HUGHES','JIANG','KULYUKIN',
+'KWON','MANO','MASCO','MATHIAS','NGUYE','QI',
+'SUNDBERG','WILLIS']
 
 var connection = mysql.createConnection({
   host    : 'se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com',
@@ -44,6 +44,29 @@ router.post('/', function(req, res) {
 	}
 
 })
+
+router.get('/:lname/:course',function(req,res){
+  console.log(req.params);
+  var querystring;
+  querystring = 'select * from studentSessions where teacher like \'%'+req.params.lname+'\'';
+  connection.query(querystring,function(err,data){
+      if(err) throw err;
+      alldata = data;
+  }) 
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName = \'Dan Watson\'';
+  connection.query(querystring,function(err,data){
+    if(err) throw err;
+    classdata = data;
+    console.log(classdata);
+    console.log(alldata);
+    res.render('datapage',{
+      lname: JSON.stringify(req.params.lname),
+      data:JSON.stringify(alldata),
+      courses:JSON.stringify(classdata)
+    });
+  })
+
+});
 //for individual queries
 // router.get('/data/:id/:date', function(req,res){
 //   //these queries need to be professor specific
@@ -155,7 +178,7 @@ router.get('/data/:lname', function(req,res){
   connection.query(querystring,function(err,data){
       //here we need to build the JSON object based on the queries to make it look like fakeData
       if(err) throw err;
-      //console.log(data)
+      console.log(data)
       //iterate the objects, if there is a date and its not in the map of dates, push it to the map of dates,
       //if it is, increment its count
       //console.log(data)
@@ -230,25 +253,34 @@ router.get('/data/:lname', function(req,res){
 })
 
 router.get('/:lname', function(req,res){
+  var alldata;
+  var classdata;
   var querystring;
   querystring = 'select * from studentSessions where teacher like \'%'+req.params.lname+'\'';
+  // querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teachList on classList.tID = teachList.tID'
   //console.log(querystring)
   connection.query(querystring,function(err,data){
       //here we need to build the JSON object based on the queries to make it look like fakeData
       if(err) throw err;
-      //console.log(data)
-      //iterate the objects, if there is a date and its not in the map of dates, push it to the map of dates,
-      //if it is, increment its count
-      //console.log(data)
-      //sadly this code is going to need to go in the frontend
-      // console.log('SENDING');
-      // console.log(dates)
-      // res.send(data);
-      res.render('datapage',{
-        lname: JSON.stringify(req.params.lname),
-        data:JSON.stringify(data)
-      });
+      alldata = data;
+      // console.log(data)
+      // res.render('datapage',{
+      //   lname: JSON.stringify(req.params.lname),
+      //   data:JSON.stringify(data)
+      // });
   }) 
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName = \'Dan Watson\'';
+  connection.query(querystring,function(err,data){
+    if(err) throw err;
+    classdata = data;
+    console.log(classdata);
+    console.log(alldata);
+    res.render('datapage',{
+      lname: JSON.stringify(req.params.lname),
+      data:JSON.stringify(alldata),
+      courses:JSON.stringify(classdata)
+    });
+  })
 
 })
 
