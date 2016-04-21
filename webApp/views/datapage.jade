@@ -6,18 +6,6 @@ html
 		script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js")			
 		script(type = 'text/javascript').
-			//$(document).ready(function(){
-			//	alert("JQUERY UP")
-			//})
-			//$.get('http://127.0.0.1:3000/data',function(data){
-			//	$('body').append('Test')
-			//})
-			//this was in the body
-			//script(type = 'text/javascript').
-			//getting the data from the node server (could this also be passed directly though for d3 to access?)
-				//$.get('http://127.0.0.1:3000/data',function(data){
-				//	$('#gt-home-form').append(data.x)
-				//})
 	body
 				div.gt-squeeze-graph
 						div.gt-home-form#chartArea
@@ -87,44 +75,17 @@ html
 									popularDay.setAttribute('class','pull--right');
 									popularDay.textContent = dayOfWeek[index];
 									$('.gt-title').append(popularDay);
-									//- professors = json;
-									//- _.keys(professors).forEach(function(professor){
-									//- 	professors[professor].forEach(function(d){
-									//- 		d.date = d3.time.format('%Y%m%d').parse(d.date);
-									//- 	})
-									//- })
-									//- path = d3.select('.gt-home-form')
-									//- 			.append('svg')
-									//- 			.attr('width','100%')
-									//- 			.attr('height','100%')
-									//- 			.append('g')
-									//- 			.attr('transform', 'translate(' + 250 + ', ' + 100 + ')')
-												//.append('path')
-									//show some kind of general chart
 									updateChart();
-
-								//- })
-								//this is going to need a different funcionality
-								//data needs to change based on a monthly, weekly, daily view
-								//not professor.   above we should only get data associated with professor Anumber
 								function updateChart (type) {
-									//filter data based on courses here.
-									//- console.log(type)
 									var data = formattedData;
 									var todayDate = moment(today);
 									var testToday = moment(today);
-									//var testDate = moment(dates[dates.length])
-									//these are in the same week
-									//console.log(todayDate.isSame(testDate,"week"))
-									//- var testDate = moment(dates[dates.length]);
-									//console.log(testDate);
-									//console.log(todayDate);
-									//console.log('is this? ' +  moment(todayDate.isSame(testDate,'week')))
 									if(typeof type !== 'undefined'){
 										if(type.view === "monthly" && typeof type.nav === "undefined"){
 											prevView = "monthly"
 											//change title to reflect user selection
 											$('.gt-title').text(monthNames[today.getMonth()])
+											$('.gt-title').append(popularDay);
 											data = data.filter(function(d){
 												if(today.getMonth()===d.date.getMonth()){
 													return d;
@@ -132,6 +93,7 @@ html
 											})
 										}else if(type.view === "weekly" && typeof type.nav === "undefined"){
 											$('.gt-title').text("Weekly View")
+											$('.gt-title').append(popularDay);
 											if(prevView === "monthly"){
 												console.log("switched from a monthly view");
 											}else{
@@ -145,12 +107,14 @@ html
 										}
 										if(type.nav === "previous" && type.view === "monthly"){
 											console.log(currMonth);
+											$('.gt-title').append(popularDay);
 											if(currMonth == 0){
 												currMonth = 11;
 											}else{
 												currMonth--;										
 											}
 											$('.gt-title').text(monthNames[currMonth])
+											$('.gt-title').append(popularDay);
 											data = data.filter(function(d){
 												if(currMonth===d.date.getMonth()){
 													return d;
@@ -164,6 +128,7 @@ html
 												currMonth++;										
 											}
 											$('.gt-title').text(monthNames[currMonth])
+											$('.gt-title').append(popularDay);
 											data = data.filter(function(d){
 												if(currMonth===d.date.getMonth()){
 													return d;
@@ -174,6 +139,7 @@ html
 											//if there is no data, just keep calling this until there is.
 											currDay = moment(currDay).subtract(7,'day');
 											$('.gt-title').text("Weekly View")		
+											$('.gt-title').append(popularDay);
 											//if i wanted to show months, but I feel its misleading
 											//$('.gt-title').text(monthNames[currDay.month()])
 											data = data.filter(function(d){
@@ -181,11 +147,6 @@ html
 													return d;
 												}
 											})
-											//this solution doesn't work
-											//i was trying to just keep running the update on the chart until there was actual data to display to the user
-											//- if(data.length === 0){
-											//- 	updateChart(viewtype);
-											//- }
 										}
 										if(type.nav === "next" && type.view === "weekly"){
 											currDay = moment(currDay).add(7,'day');
@@ -274,12 +235,14 @@ html
 
 
 								}
-				div.gt-lowerButton#lowerbuttons			
+				div.gt-lowerButton#lowerbuttons		
 						button(class="btn",type="submit", onclick="updateChart('weekly')", id = 'weekly').
 							Week
 						//in monthly view, if tuesday is clicked, so all tuesday data
 						button(class="btn",type="submit", onclick="updateChart('monthly')",id='monthly').
 							Month
+						button(class="btn",type="submit", onclick = "window.location.href='/"+lname.replace(/['"]+/g, '')+"'", id = 'home').
+							Home
 						br
 						//update chart to previous month onclick
 						button(class="btn",type="submit", id = 'previous',onclick="updateChart('previous')").
@@ -287,8 +250,6 @@ html
 						//update chart to next month onclick
 						button(class="btn",type="submit", id = 'next', onclick="updateChart('next')").
 							>>
-						//NOTE: I'll need to add one more thing to the object, a class name, so we can filter on the class name if necessary as well.
-						//mimic the other updateChart(viewtype) calls for this functionality
 						br
 					script.
 						$('#weekly').click(function(){
@@ -303,7 +264,8 @@ html
 							newClass.setAttribute('type','submit')
 							newClass.textContent = course.cName;
 							newClass.onclick = function(e){
-								location.href = '/WATSON/'+course.cName;
+								//this needs to be the prof name
+								location.href = '/'+ lname +'/'+course.cName;
 								//- e.preventDefault();
 								//I think it would be better to do a post here instead.
 								//- viewtype.course = $(this).text();

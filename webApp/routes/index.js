@@ -48,12 +48,12 @@ router.post('/', function(req, res) {
 router.get('/:lname/:course',function(req,res){
   console.log(req.params);
   var querystring;
-  querystring = 'select * from studentSessions where teacher like \'%'+req.params.lname+'\'';
-  connection.query(querystring,function(err,data){
+  querystring = 'select * FROM studentSessions WHERE studentSessions.class = \''+req.params.course+'\' AND teacher like \'%'+req.params.lname+'\'';
+  connection.query(querystring,function(err,data){      
       if(err) throw err;
       alldata = data;
   }) 
-  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName = \'Dan Watson\'';
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';
   connection.query(querystring,function(err,data){
     if(err) throw err;
     classdata = data;
@@ -263,13 +263,8 @@ router.get('/:lname', function(req,res){
       //here we need to build the JSON object based on the queries to make it look like fakeData
       if(err) throw err;
       alldata = data;
-      // console.log(data)
-      // res.render('datapage',{
-      //   lname: JSON.stringify(req.params.lname),
-      //   data:JSON.stringify(data)
-      // });
   }) 
-  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName = \'Dan Watson\'';
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';;
   connection.query(querystring,function(err,data){
     if(err) throw err;
     classdata = data;
