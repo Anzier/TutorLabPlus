@@ -5,12 +5,16 @@ div.mainheader
 		each item, index in items
 			if (index === 1)
 				h1 The overall student sessions for #{item.teacher}
-			if (index+1 === items.length)
-				li Below is the total number of student sessions:
-				li=items.length
-		
+			
+div.sessionCount
+	each item, index in items
+		if (index+1 === items.length)
+			li Below is the total number of student sessions:
+			li=items.length
+
+div.tablebody
 		block content
-		table(border='4')
+		table(border='6')
 			thead
 				link(href="/css/style.css", rel="stylesheet", type="text/css")
 
@@ -33,5 +37,9 @@ div.mainheader
 							td=item.sComment + ' '
 							script(type='text/javascript').
 								console.log("hello")
+	//each item, index in items
+		//li=item.timeIn +'....'+ item.timeOut
+	
+
 								
 									

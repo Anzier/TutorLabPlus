@@ -11,7 +11,24 @@
     max-height: 500px;
     margin: 10px;
     border: 1px solid #fff;
-    background-color: #f8f1c8;
+    //background-color: #f8f1c8;
+    background-color: #000000;
+    box-shadow: 0px 2px 7px #292929;
+    -moz-box-shadow: 0px 2px 7px #292929;
+    -webkit-box-shadow: 0px 2px 7px #292929;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.sessionCount{
+  color: yellow;
+  width: 900px;
+    max-height: 500px;
+    margin: 10px;
+    border: 1px solid #fff;
+    //background-color: #f8f1c8;
+    background-color: #000000;
     box-shadow: 0px 2px 7px #292929;
     -moz-box-shadow: 0px 2px 7px #292929;
     -webkit-box-shadow: 0px 2px 7px #292929;
@@ -21,27 +38,35 @@
 }
 
 .tableBody{
-  margin: 0 auto;
+  width: 900px;
+
+  margin: 10px;
+  background-color: #000000;
 }
 
 th{
   height : 50px;
+  color: blue;
 }
+tr{
+  color: blue;
+}
+
 table.mainTable tr{
-  
+  background-color: white;
   font-size: 200%;
   font-family: verdana;
 }
 
 
 
-tr:hover {background-color: lightblue;}
+tr:hover {background-color: white;}
 td:hover{background-color: yellow;}
 
 h1 {
-  color: blue;
+  color: yellow;
     font-family: verdana;
-    font-size: 300%;
+    font-size: 200%;
   font: bold;
 }
 
@@ -74,6 +99,7 @@ h1 {
 }
 
 .gt-squeeze {
+  background-color: black;
   position: relative;
   margin: 0 auto;
   padding: 0 20px;
@@ -83,6 +109,7 @@ h1 {
 }
 
 .gt-home-form{
+  background-color: black;
   position:absolute;
   /*top:50%;*/
   right:0;
@@ -94,6 +121,7 @@ h1 {
 
 
 .gt-prof-form{
+  background-color: black;
   position:absolute;
   top:50%;
   right:0;
@@ -206,6 +234,7 @@ input{
 }
 
 .button-left{
+  background-color: black;
   float: left;
 
 }
@@ -250,6 +279,7 @@ body {
 }
 
 .gt-wrap {
+  /*background-color: black;*/
   height: auto !important;
   height: 100%;
   margin-bottom: -100px;

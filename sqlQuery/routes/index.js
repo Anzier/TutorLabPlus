@@ -126,6 +126,7 @@ router.get('/:password', function(req,res){
   connection.query('SELECT * FROM teacherList', function(err, rows, fields){
   res.render('main', {
     items:rows
+    //items:JSON.stringify(rows)
   });
 });
 });
