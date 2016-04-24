@@ -1,13 +1,14 @@
 html
+div.mainheader
 	block content
 	div(id="body")
 		each item, index in items
 			if (index === 1)
 				h1 The overall student sessions for #{item.teacher}
 			if (index+1 === items.length)
+				li Below is the total number of student sessions:
 				li=items.length
-		li The above is the total number of people who need help
-
+		
 		block content
 		table(border='4')
 			thead
@@ -30,3 +31,7 @@ html
 							td=item.teacher + ' '
 							td=item.timeOut +' '
 							td=item.sComment + ' '
+							script(type='text/javascript').
+								console.log("hello")
+								
+									

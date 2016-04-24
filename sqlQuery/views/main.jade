@@ -6,42 +6,38 @@ html
 				div.gt-squeeze
 					div.button-left.button-margin-left
 						div.gt-prof-form
-							h1 WELCOME ADMIN
-					
+
 							
-	body
-		div.gt-wrap
-			div.gt-content
-				div.gt-squeeze
-					div.button-left.button-margin-left
-						div.tableMain
-							table(border='1', class="mainTable")
-								thead
-									link(href="/css/style.css", rel="stylesheet", type="text/css")
+							div.mainheader
+								h1 WELCOME ADMIN
+								div.tableMain
+									div.button-left.button-margin-left
+										table(border='1', class="mainTable")
+											thead
+												link(href="/css/style.css", rel="stylesheet", type="text/css")
+												tr
+												th Teacher
+											tbody
+												each item in items
+													tr
+														td
+															a(href='/specificData/'+item.tName) #{item.tName}
+							div.tableMain
+								table(border='1', class="mainTable")
+									thead
+										link(href="/css/style.css", rel="stylesheet", type="text/css")
 
-									tr
-										th Teacher
+										tr
+											th Overall Data
 									tbody
-										each item in items
 											tr
-											
 												td
-													a(href='/specificData/'+item.tName) #{item.tName}
-						div.linker
-							ul
-								li
-									a(href='/studentData') StudentData
-								li
-									a(href='/data') ClassData
-								li
-									a(href='/teacherList') TeacherData
-								li
-									a(href='/joinedTeacherClass') Class and Professor
-						
-						
-												
-												
-											
+													a(href='/studentData') StudentData
+												td
+													a(href='/data') ClassData
+												td
+													a(href='/teacherList') TeacherData
+												td
+													a(href='/joinedTeacherClass') Class and Professor
 
-									
-
+	
