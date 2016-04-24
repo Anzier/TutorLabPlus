@@ -9,7 +9,7 @@
 .mainheader{
   width: 900px;
     max-height: 500px;
-    margin: 10px;
+    margin: 20px;
     border: 1px solid #fff;
     //background-color: #f8f1c8;
     background-color: #000000;
@@ -53,6 +53,7 @@ tr{
 }
 
 table.mainTable tr{
+  margin: 10px;
   background-color: white;
   font-size: 200%;
   font-family: verdana;
@@ -262,7 +263,7 @@ h1, h2, h3, h4, h5, h6 {
   -moz-box-sizing: border-box;
   -o-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0;
+  margin: 10;
   padding: 0;
 }
 
