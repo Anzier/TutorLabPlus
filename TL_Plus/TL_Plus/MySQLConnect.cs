@@ -87,7 +87,7 @@ namespace TL_Plus
                 + "','" + course
                 + "','" + teacher
                 + "','" + sTime
-                + "','" + eTime
+                + "',' " + eTime
                 + "','" + fixApostrophe(sProb)
                 + "','" + fixApostrophe(tProb)
                 + "')";
@@ -123,11 +123,56 @@ namespace TL_Plus
             CloseConnection();
             return tempList;
         }
-        //Returns a list of teachers currently in the DB.
-        public List<string> getTeachers()
+        
+        //Helper Function for testing getting a list of IDs
+        public List<string> getTeachersHelper(string course)
         {
+            List<string> courseIDs = new List<string>();
+            string courseQuery = "select * from classList where cName='" + course + "'";
+
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(courseQuery, connection);
+                MySqlDataReader mdr = cmd.ExecuteReader();
+                while (mdr.Read())
+                {
+                    if (!(mdr["tID1"].Equals(System.DBNull.Value)))
+                    {
+                        courseIDs.Add(mdr.GetString("tID1"));
+                    }
+                    if (!(mdr["tID2"].Equals(System.DBNull.Value)))
+                    {
+                        courseIDs.Add(mdr.GetString("tID2"));
+                    }
+                    if (!(mdr["tID3"].Equals(System.DBNull.Value)))
+                    {
+                        courseIDs.Add(mdr.GetString("tID3"));
+                    }
+                    if (!(mdr["tID4"].Equals(System.DBNull.Value)))
+                    {
+                        courseIDs.Add(mdr.GetString("tID4"));
+                    }
+                }
+            }
+            CloseConnection();
+            return courseIDs;
+        }
+
+
+        //Returns a list of teachers currently in the DB.
+        public List<string> getTeachers(List<string> ids)
+        {
+            string querySelection="";
+            for (int i = 0; i < ids.Count; ++i)
+            {
+                querySelection += " tID =" + ids[i] + "";
+                if (i != (ids.Count - 1))
+                {
+                    querySelection += " or ";
+                }
+            }
             List<string> tempList = new List<string>();
-            string query = "select tName from teacherList";
+            string query = "select tName from teacherList where" + querySelection;
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
