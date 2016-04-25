@@ -53,7 +53,7 @@ router.get('/:lname/:course',function(req,res){
       if(err) throw err;
       alldata = data;
   }) 
-  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID1 = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';
   connection.query(querystring,function(err,data){
     if(err) throw err;
     classdata = data;
@@ -264,7 +264,7 @@ router.get('/:lname', function(req,res){
       if(err) throw err;
       alldata = data;
   }) 
-  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';;
+  querystring = 'select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID1 = teacherList.tID WHERE teacherList.tName like \'%'+req.params.lname+'\'';;
   connection.query(querystring,function(err,data){
     if(err) throw err;
     classdata = data;
