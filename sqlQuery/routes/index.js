@@ -41,12 +41,12 @@ connection.query('select * from teacherList where tID = 1', function(err, data) 
 
 console.log('here is the teacherName' , teacherName);
 
-connection.query('SELECT * FROM classList WHERE tID = 1' ,function(err, data){
+connection.query('SELECT * FROM classList WHERE tID1 = 1' ,function(err, data){
 	if(err) throw err;
 	console.log(data);
 });
 
-connection.query("select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID WHERE teacherList.tName = 'Dan Watson'" ,function(err, data){
+connection.query("select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID1 = teacherList.tID WHERE teacherList.tName = 'Dan Watson'" ,function(err, data){
 	if(err) throw err;
 	console.log(data);
 });
@@ -85,7 +85,7 @@ router.get('/teacherList', function(req, res){
 });
 
 router.get('/joinedTeacherClass', function(req, res){
-  connection.query("select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID = teacherList.tID " , function(err, rows, fields){
+  connection.query("select classList.cName, teacherList.tName FROM classList INNER JOIN teacherList ON classList.tID1 = teacherList.tID " , function(err, rows, fields){
     res.render('joinedTeacherClass', {
       items: rows
     });
