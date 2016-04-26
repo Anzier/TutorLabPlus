@@ -74,9 +74,16 @@
       <DependentUpon>StudentCheckIn.xaml</DependentUpon>
     </Compile>
     <Compile Include="StudentSession.cs" />
+    <Compile Include="TutorAccept.xaml.cs">
+      <DependentUpon>TutorAccept.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TutorCompetion.xaml.cs">
       <DependentUpon>TutorCompetion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TutorRequest.xaml.cs">
+      <DependentUpon>TutorRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TutorShift.cs" />
     <Compile Include="TutorsPage.xaml.cs">
       <DependentUpon>TutorsPage.xaml</DependentUpon>
     </Compile>
@@ -99,7 +106,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TutorAccept.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TutorCompetion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TutorRequest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

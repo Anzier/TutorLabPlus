@@ -14,70 +14,25 @@ using System.Windows.Shapes;
 
 namespace TL_Plus
 {
-    /// <summary>
-    /// Interaction logic for TutorsPage.xaml
-    /// </summary>
     public partial class TutorsPage : Window
     {
+        static List<TutorShift> activelyGiving;
+        static List<TutorShift> activelyTaking;
+        static List<TutorShift> completedRequest;
 
 
         public TutorsPage()
         {
             InitializeComponent();
+            activelyGiving = new List<TutorShift>();
+            activelyTaking = new List<TutorShift>();
+            completedRequest = new List<TutorShift>();
 
-            List<string> MFWTimes = new List<string> { "8:25-10:25", "10:25-12:25", "12:25-2:25", "2:25-4:25", "4:25-6:25", "6:25-9:00" };
-            List<string> TRTimes = new List<string> { "8:25-10:25", "10:30-11:55", "11:55-1:25", "1:25-2:55", "2:55-4:25", "4:25-6:25", "6:25-9:00" };
-            string[,] people = new string[3, 6];
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 6; j++)
-                {
-                    people[i, j] = "person "+(j+i);
-                }
-            }
-            List<Tutor> Tutors = new List<Tutor>();
-            Tutors.Add(new Tutor() { NTG = false, Name = "John Doe" });
-            Tutors.Add(new Tutor() { NTG = false, Name = "Jane Doe" });
-            Tutors.Add(new Tutor() { NTG = false, Name = "Sammy Doe" });
-
-            for (int i = 0; i < 6; i++)
-            {
-                var data = new Test { day1 = people[0,i], day2 = "Tue", day3 = "Wed", day4 = "Thu", day5 = "Fri", day6 = "Sat" };
-            DataGridTest.Items.Add(data);
-            }
-
-
-            //dgUsers.ItemsSource = Tutors;
-            
-            // ACCESS DATABASE HERE AND RETRIEVE DATA FOR TUTOR SCHEDULES
-            //////////////////////////////////////////////////////////////////////
-            // LOGAN - JAKE                                                     //
-            // THIS IS WHERE YOU INSERT THE CODE TO CONNECT TO THE DATABASE     //
-            //////////////////////////////////////////////////////////////////////
-            //Initialize entries in the grid to show [M] [T] [W] [R] [F] [S] [S], as well as each name and the times inside each cell
-        }
-        public class Test
-        {
-            public string day1 { get; set; }
-            public string day2 { get; set; }
-            public string day3 { get; set; }
-            public string day4 { get; set; }
-            public string day5 { get; set; }
-            public string day6 { get; set; }
-        }
-        public class Tutor
-        {               // Need To Give (shift)
-            public bool NTG { get; set; }
-            public string Name { get; set; }
         }
 
         private void Action_Save(object sender, RoutedEventArgs e)
         {
-            // ACCESS DATABASE HERE AND WRITE CHANGES
-            //////////////////////////////////////////////////////////////////////
-            // LOGAN - JAKE                                                     //
-            // THIS IS WHERE YOU INSERT THE CODE TO CONNECT TO THE DATABASE     //
-            //////////////////////////////////////////////////////////////////////
+
 
             // if(upload.wasSuccessful()){   <- pseudocode to verify it worked correctly
             MessageBox.Show("Your entry has been saved into the system");
@@ -86,5 +41,99 @@ namespace TL_Plus
         {
             this.Close();
         }
+
+        private void TRequestButton(object sender, MouseButtonEventArgs e)
+        {
+            TutorRequest newsesh = new TutorRequest();
+            newsesh.Owner = this;
+            newsesh.ShowDialog();
+
+            if (newsesh.newShift != null)
+            {
+
+                if (newsesh.newShift.givingshift == true)
+                {// giving a shift
+                    activelyGiving.Add(newsesh.newShift);
+                    givingshift.Items.Add(newsesh.newShift.initiatorName + " from " + newsesh.newShift.start.ToString() + " to " + newsesh.newShift.end.ToString() + " on " + newsesh.newShift.date);
+
+
+                }
+                else if (newsesh.newShift.givingshift == false)
+                {// taking a shift
+                    activelyTaking.Add(newsesh.newShift);
+                    takingshift.Items.Add(newsesh.newShift.initiatorName + " from " + newsesh.newShift.start.ToString() + " to " + newsesh.newShift.end.ToString() + " on " + newsesh.newShift.date);
+                }
+
+            }
+        }
+
+
+        private void givingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
+        {
+            int index = givingshift.SelectedIndex;
+        }
+
+        private void takingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
+        {
+            int index = takingshift.SelectedIndex;
+        }
+
+        private void tradedshifts_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
+        {
+            int index = tradedshifts.SelectedIndex;
+        }
+
+
+        //static List<TutorShift> activelyGiving;
+        //static List<TutorShift> activelyTaking;
+        //static List<TutorShift> completedRequest;/
+        private void TAcceptButton(object sender, MouseButtonEventArgs e)
+        {
+            int gindex = givingshift.SelectedIndex;
+            int takeindex = takingshift.SelectedIndex;
+            int tradeindex = tradedshifts.SelectedIndex;
+            TutorAccept comp;
+
+            if (gindex != -1 && takeindex == -1 && tradeindex == -1)
+            {//section for giving column
+                comp = new TutorAccept(activelyGiving[gindex]);
+                comp.Owner = this;
+                comp.ShowDialog();
+                if (comp.submitted == true)
+                {
+                    activelyGiving.RemoveAt(gindex);
+                    completedRequest.Add(comp.shift);// remove old version, add new
+
+                    givingshift.Items.RemoveAt(gindex);// remove old list item, replace with updated text
+                    tradedshifts.Items.Add(comp.shift.initiatorName + " " + comp.shift.start + " - " + comp.shift.end + ", " + comp.shift.date + " (Taken by " + comp.shift.acceptorName + ")");
+                }
+
+
+            }
+            else if (gindex == -1 && takeindex != -1 && tradeindex == -1)
+            {// section for taking column
+                comp = new TutorAccept(activelyTaking[takeindex]);
+                comp.Owner = this;
+                comp.ShowDialog();
+
+                if (comp.submitted == true)
+                {
+                    activelyTaking.RemoveAt(takeindex);
+                    completedRequest.Add(comp.shift);// remove old version, add new
+
+                    takingshift.Items.RemoveAt(takeindex);// remove old list item, replace with updated text
+                    tradedshifts.Items.Add(comp.shift.initiatorName + " " + comp.shift.start + "-" + comp.shift.end + comp.shift.date + " (Taken by " + comp.shift.acceptorName + ")");
+                }
+            }
+            else if (gindex == -1 && takeindex == -1 && tradeindex != -1)
+            {// section for already traded column
+                // TutorAccept comp = new TutorAccept(completedRequest[tradeindex]);
+                // comp.Owner = this;
+                // comp.ShowDialog();
+                //DO NOTHING IF THEY TRY TO MODIFY THIS ONE.
+            }
+
+        }
     }
+
 }
