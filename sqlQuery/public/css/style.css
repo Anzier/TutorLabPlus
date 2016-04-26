@@ -12,7 +12,23 @@
     margin: 20px;
     border: 1px solid #fff;
     //background-color: #f8f1c8;
-    background-color: #000000;
+    background-color: #000097;
+    box-shadow: 0px 2px 7px #292929;
+    -moz-box-shadow: 0px 2px 7px #292929;
+    -webkit-box-shadow: 0px 2px 7px #292929;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.mainheaderover{
+  color: white;
+  width: 900px;
+    max-height: 500px;
+    margin: 20px;
+    border: 1px solid #fff;
+    //background-color: #f8f1c8;
+    background-color: #000097;
     box-shadow: 0px 2px 7px #292929;
     -moz-box-shadow: 0px 2px 7px #292929;
     -webkit-box-shadow: 0px 2px 7px #292929;
@@ -22,7 +38,7 @@
 }
 
 .sessionCount{
-  color: yellow;
+  color: white;
   width: 900px;
     max-height: 500px;
     margin: 10px;
@@ -65,7 +81,7 @@ tr:hover {background-color: white;}
 td:hover{background-color: yellow;}
 
 h1 {
-  color: yellow;
+  color: white;
     font-family: verdana;
     font-size: 200%;
   font: bold;
