@@ -35,12 +35,12 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
 	var form = req.body
 	//check this against a valid list of professors last names
-	if(profList.indexOf(form.lName) === -1){
+	if(profList.indexOf(form.lName.toUpperCase()) === -1){
 		res.render('profLogin',{
 			error_message: "Invalid Login"
 		})
 	}else{
-		return res.redirect(form.lName);
+		return res.redirect(form.lName.toUpperCase());
 	}
 
 })
