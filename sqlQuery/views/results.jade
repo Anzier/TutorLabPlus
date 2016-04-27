@@ -1,0 +1,131 @@
+link(href="/css/style.css", rel="stylesheet", type="text/css")
+
+div.resultHeader
+	h1 #{tName}
+div.mainheader
+	h1 The total number of hours for this teacher:
+head
+	script(type = 'text/javascript').
+body
+	//for each in data.split(" ")
+		//p !{each}
+div.resultStuff
+	script.
+		var timeInList = [];
+		var timeOutList = [];
+		var totalHours = 0;
+		var data = !{data}
+		data.forEach(function(studentSession){
+				if(studentSession.timeIn){
+					timeInList.push(studentSession.timeIn)
+					console.log(timeInList)
+				} 
+				if(studentSession.timeOut){
+					timeOutList.push(studentSession.timeOut)
+					console.log(timeOutList)
+				}
+			});
+
+		for(i =0; i < timeInList.length; i++){
+			console.log("element", i)
+			console.log(timeInList[i].split(" ")[1]);
+			console.log(timeOutList[i].split(" ")[1]);
+		}
+		
+		for(i =0; i < timeInList.length; i++){
+			var topTime = 0;
+			var bottomTime = 0;
+			console.log(timeInList[i].split(":")[1])
+			console.log(timeOutList[i].split(":")[1])
+			console.log(parseInt(timeOutList[i].split(" ")[1].split(":")[0])+12)
+			console.log(timeInList[i].split(" ")[1].split(":")[0])
+
+			if(timeOutList[i].split(" ")[2] == 'PM'){
+				topTime= ((parseInt(timeOutList[i].split(" ")[1].split(":")[0]) +12) * 60)
+			} else{
+				topTime= (timeOutList[i].split(" ")[1].split(":")[0]) * 60
+			}
+			if(timeInList[i].split(" ")[2] == 'PM'){
+				bottomTime = ((parseInt(timeInList[i].split(" ")[1].split(":")[0]) +12) * 60)
+			}else{
+				bottomTime = (timeInList[i].split(" ")[1].split(":")[0]) * 60
+			}
+			console.log("Toptime", topTime)
+			console.log("bottomTime", bottomTime)
+			totalHours += topTime - bottomTime
+			//totalHours += (timeOutList[i].split(" ")[1].split(":")[0]*60) - (timeInList[i].split(" ")[1].split(":")[0]*60)
+			totalHours += timeOutList[i].split(":")[1] - timeInList[i].split(":")[1]
+		}
+		totalHours/=60
+		console.log("Total Hours", totalHours)
+		document.write(totalHours)
+div.mainheader
+	h1 Here is the most frequent user:
+	p
+div.resultStuff
+	script.
+		//now i am going to return the most frequent user 
+		var userList = []
+		data.forEach(function(studentSession){
+			if(studentSession.sName){
+				userList.push(studentSession.sName);
+			}
+		})
+		console.log(userList)
+
+		var count = 0;
+		var tempCount = 0;
+		var popular = ""
+		var temp = ""
+
+		for(i =0; i < userList.length; i++){
+			temp = userList[i];
+			tempCount =0;
+			for(j=1; j < userList.length; j++){
+				if (temp == userList[j]){
+					tempCount++;
+				}
+				if (tempCount > count){
+					popular = temp;
+					count = tempCount;
+				}
+			}
+		}
+		console.log(popular)
+		document.write(popular)
+div.mainHeader
+	h1 Here is the most frequent class:
+div.resultStuff
+	script.
+		//now i am going to return the most frequent user 
+		var userList = []
+		data.forEach(function(studentSession){
+			if(studentSession.class){
+				userList.push(studentSession.class);
+			}
+		})
+		console.log(userList)
+
+		var count = 0;
+		var tempCount = 0;
+		var popular = ""
+		var temp = ""
+
+		for(i =0; i < userList.length; i++){
+			temp = userList[i];
+			tempCount =0;
+			for(j=1; j < userList.length; j++){
+				if (temp == userList[j]){
+					tempCount++;
+				}
+				if (tempCount > count){
+					popular = temp;
+					count = tempCount;
+				}
+			}
+		}
+		console.log(popular)
+		document.write(popular)
+
+
+

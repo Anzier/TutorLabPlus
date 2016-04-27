@@ -103,6 +103,47 @@ router.get('/specificData/:tName', function(req, res){
 });
 });
 
+router.get('/specificData/:tName/results', function(req, res){
+  var teach = req.params.tName;
+  var alldata;
+  console.log(teach);
+  console.log("going to results");
+  connection.query('SELECT * FROM studentSessions where teacher = ?', [teach], function(err, data){
+      if (err) throw err
+      alldata = data
+    console.log("before data")
+    console.log(data)
+    console.log("after data")
+    console.log(alldata)
+      //res.render('results',{
+          //data:JSON.stringify(alldata)
+      //})
+    //res.send(data)
+    res.render('results',{
+      tName:JSON.stringify(req.params.tName),
+      data:JSON.stringify(alldata)
+    })
+   
+
+  })
+})
+
+/*
+router.get('/results', function(req, res){
+  var teach = req.params.tName;
+   
+   connection.query('SELECT * FROM studentSessions where teacher = ?', [teach], function(err, data){
+      if (err) throw err
+      alldata = data
+    console.log(alldata)
+    res.render('results',{
+        data:JSON.stringify(alldata)
+    })
+})
+ })
+*/
+
+
 router.get('/', function(req, res) {
   res.render('adminLog')
 })
