@@ -31,12 +31,9 @@ namespace TL_Plus
             continuing = false;
            TeacherCB.Visibility = Visibility.Hidden;
 
-            //courses = courseList;  old code to hardcode the course list
              MySQLConnect connectCourse = new MySQLConnect();//opens a new connection to the DB
              courses = connectCourse.getClasses(); // Returns a list of the courses in the database as a list of strings.
 
-             //MySQLConnect connectTeachers = new MySQLConnect();//opens a new connection to the DB
-             //teachers = connectCourse.getTeachers(); // Returns a list of the teachers in the database as a list of strings.
 
              for (int i = 0; i < courses.Count; i++)
              {
@@ -68,8 +65,6 @@ namespace TL_Plus
             string _problem = SignInProblem.Text;
             string teacher = (TeacherCB.SelectedItem).ToString();
            MainWindow.writeCheckInData(Name,_Class, _problem, teacher);
-           //MySQLConnect connect = new MySQLConnect() ;
-           //connect.Insert(_ANum, "12:15", "1:15", _Class, "Bob", "tangled", "blue");
            this.Close();
 
         }

@@ -78,7 +78,6 @@ namespace TL_Plus
 
             continuing = true;
             this.Close();
-
         }
        // private void TRTC(object sender, TextChangedEventArgs e)
        // {

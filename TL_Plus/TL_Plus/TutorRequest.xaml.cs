@@ -54,7 +54,6 @@ namespace TL_Plus
             }
             else { MessageBox.Show("You must select whether you are giving or taking a shift."); }
 
-
         }
 
         private void cancel(object sender, MouseButtonEventArgs e)
