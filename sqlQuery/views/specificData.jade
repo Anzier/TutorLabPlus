@@ -3,7 +3,7 @@ div.mainheader
 	block content
 	div(id="body")
 		each item, index in items
-			if (index === 1)
+			if (index === 0)
 				h1 The overall student sessions for #{item.teacher}
 				//a(href='/specificData/'+item.teacher+'/results') #{item.teacher}
 				div.resultsLink
