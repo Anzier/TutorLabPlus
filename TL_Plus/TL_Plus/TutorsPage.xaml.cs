@@ -55,34 +55,50 @@ namespace TL_Plus
                 {// giving a shift
                     activelyGiving.Add(newsesh.newShift);
                     givingshift.Items.Add(newsesh.newShift.initiatorName + " from " + newsesh.newShift.start.ToString() + " to " + newsesh.newShift.end.ToString() + " on " + newsesh.newShift.date);
-
-
+                   //Open mySQL connection for sending data
+                    MySQLConnect connect = new MySQLConnect();
+                    connect.TutorInsert(newsesh.newShift.initiatorName, true, newsesh.newShift.date, newsesh.newShift.start.ToString(), newsesh.newShift.end.ToString());
+                    //Test for populating shifts, mostly working
+                    /*
+                    List<TutorShift> tempGiving = new List<TutorShift>();
+                    tempGiving = connect.ShifsPopulate("04/28/2016", true, false);
+                    for(int i =0; i< tempGiving.Count; ++i){
+                        givingshift.Items.Add(tempGiving[i].initiatorName + " from " + tempGiving[i].start + " to " + tempGiving[i].end + " on " + tempGiving[i].date);
+                    }*/
                 }
                 else if (newsesh.newShift.givingshift == false)
                 {// taking a shift
                     activelyTaking.Add(newsesh.newShift);
                     takingshift.Items.Add(newsesh.newShift.initiatorName + " from " + newsesh.newShift.start.ToString() + " to " + newsesh.newShift.end.ToString() + " on " + newsesh.newShift.date);
+                     MySQLConnect connect = new MySQLConnect();
+                     connect.TutorInsert(newsesh.newShift.initiatorName, false, newsesh.newShift.date, newsesh.newShift.start.ToString(), newsesh.newShift.end.ToString());
                 }
 
             }
         }
 
-
+        
         private void givingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
         {
             int index = givingshift.SelectedIndex;
+            takingshift.UnselectAll();
+            tradedshifts.UnselectAll();
         }
 
         private void takingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
         {
             int index = takingshift.SelectedIndex;
+            givingshift.UnselectAll();
+            tradedshifts.UnselectAll();
         }
 
         private void tradedshifts_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
         {
             int index = tradedshifts.SelectedIndex;
+            givingshift.UnselectAll();
+            takingshift.UnselectAll();
         }
-
+        
 
         //static List<TutorShift> activelyGiving;
         //static List<TutorShift> activelyTaking;
@@ -106,6 +122,8 @@ namespace TL_Plus
 
                     givingshift.Items.RemoveAt(gindex);// remove old list item, replace with updated text
                     tradedshifts.Items.Add(comp.shift.initiatorName + " " + comp.shift.start + " - " + comp.shift.end + ", " + comp.shift.date + " (Taken by " + comp.shift.acceptorName + ")");
+                    MySQLConnect connect = new MySQLConnect();
+                    connect.TutorUpdate(comp.shift.initiatorName, comp.shift.date, comp.shift.start, comp.shift.end, true, comp.shift.acceptorName);
                 }
 
 
@@ -123,6 +141,8 @@ namespace TL_Plus
 
                     takingshift.Items.RemoveAt(takeindex);// remove old list item, replace with updated text
                     tradedshifts.Items.Add(comp.shift.initiatorName + " " + comp.shift.start + "-" + comp.shift.end + comp.shift.date + " (Taken by " + comp.shift.acceptorName + ")");
+                    MySQLConnect connect = new MySQLConnect();
+                    connect.TutorUpdate(comp.shift.initiatorName, comp.shift.date, comp.shift.start, comp.shift.end, true, comp.shift.acceptorName);
                 }
             }
             else if (gindex == -1 && takeindex == -1 && tradeindex != -1)

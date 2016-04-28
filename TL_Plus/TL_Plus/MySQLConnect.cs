@@ -43,7 +43,7 @@ namespace TL_Plus
             try
             {
                 connection.Open();
-              //  MessageBox.Show("Connection Opened");  //Debug to show the connection opens
+                //  MessageBox.Show("Connection Opened");  //Debug to show the connection opens
                 return true;
             }
             catch (MySqlException ex)
@@ -93,7 +93,7 @@ namespace TL_Plus
                 + "')";
             if (this.OpenConnection() == true)
             {
-               // MessageBox.Show("Connection Opened");
+                // MessageBox.Show("Connection Opened");
                 MySqlCommand cmd = new MySqlCommand(studentInfo, connection);
                 cmd.ExecuteNonQuery();
                 CloseConnection();
@@ -103,7 +103,8 @@ namespace TL_Plus
                 MessageBox.Show("Not Connected, can't use the force Vader");
             }
         }
-        public List<string> getClasses(){
+        public List<string> getClasses()
+        {
             List<string> tempList = new List<string>();
             tempList.Add("-None Selected-");
             string query = "select cName from classList";
@@ -113,7 +114,8 @@ namespace TL_Plus
                 MySqlDataReader mdr = cmd.ExecuteReader();
                 while (mdr.Read())
                 {
-                    for(int i = 0; i< mdr.FieldCount; i++){
+                    for (int i = 0; i < mdr.FieldCount; i++)
+                    {
                         string course;
                         course = mdr.GetString(i);
                         tempList.Add(course);
@@ -123,7 +125,7 @@ namespace TL_Plus
             CloseConnection();
             return tempList;
         }
-        
+
         //Helper Function for testing getting a list of IDs
         public List<string> getTeachersHelper(string course)
         {
@@ -162,7 +164,7 @@ namespace TL_Plus
         //Returns a list of teachers currently in the DB.
         public List<string> getTeachers(List<string> ids)
         {
-            string querySelection="";
+            string querySelection = "";
             for (int i = 0; i < ids.Count; ++i)
             {
                 querySelection += " tID =" + ids[i] + "";
@@ -190,5 +192,101 @@ namespace TL_Plus
             CloseConnection();
             return tempList;
         }
+
+        /***************************************************************************************/
+        /*                 Tutor Connections Section                                           */
+        /***************************************************************************************/
+        public void TutorInsert(string name, bool giveTake, string date, string sTime, string eTime)//, bool accept, string aName)
+        {
+            string tutorInfo = "INSERT INTO tutorShifts(tName, giveTake, date, sTime, eTime, accepted) VALUES("//, aName) VALUES ("
+                + "'" + name
+                + "'," + giveTake
+                + ",'" + date
+                + "','" + sTime
+                + "','" + eTime
+                + "'," + false
+                //+ "','" + aName
+                + ")";
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(tutorInfo, connection);
+                cmd.ExecuteNonQuery();
+                CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show("Not Connected, can't use the force Vader");
+            }
+        }
+        //Creates a SQL command string for updating to shifts that have been accepted.
+        public void TutorUpdate(string name, string date, string sTime, string eTime, bool accept, string aName)
+        {
+            string studentInfo = "UPDATE tutorShifts SET accepted="
+                + "" + accept
+                + ", aName='" + aName
+                + "' WHERE tName='" + name
+                + "' AND date='" + date
+                + "' AND sTime='" + sTime
+                + "' AND eTime='" + eTime
+                + "'";
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(studentInfo, connection);
+                cmd.ExecuteNonQuery();
+                CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show("Not Connected, can't use the force Vader");
+            }
+        }
+        public List<TutorShift> ShifsPopulate(string date, bool giveTake, bool accepted)
+        {
+            string listQuery="";
+            List<TutorShift>  tempList = new List<TutorShift>();
+            if(accepted==true){
+                listQuery = "select * from tutorShifts where date >='" + date + "' and date < '12/31/2999' and accepted="+ accepted + ""; 
+            }else{
+                listQuery = "select * from tutorShifts where date >='" + date + "' and date < '12/31/2999' and giveTake=" + giveTake + ""; 
+            }
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(listQuery, connection);
+                MySqlDataReader mdr = cmd.ExecuteReader();
+                while (mdr.Read())
+                {
+                    string iN="", aN="", d="", sT="", eT="";
+                    bool acc=false, gt=false;
+                    if (!(mdr["tName"].Equals(System.DBNull.Value))){
+                        iN=mdr.GetString("tName");
+                    }
+                    if (!(mdr["aName"].Equals(System.DBNull.Value))){
+                        aN=mdr.GetString("aName");
+                    }
+                    if (!(mdr["date"].Equals(System.DBNull.Value))){
+                        d=mdr.GetString("date");
+                    }
+                    if (!(mdr["sTime"].Equals(System.DBNull.Value))){
+                        sT=mdr.GetString("sTime");
+                    }
+                    if (!(mdr["eTime"].Equals(System.DBNull.Value))){
+                        eT=mdr.GetString("eTime");
+                    }
+                    if (!(mdr["giveTake"].Equals(System.DBNull.Value))){
+                        gt=mdr.GetBoolean("giveTake");
+                    }
+                    if (!(mdr["accepted"].Equals(System.DBNull.Value))){
+                        acc=mdr.GetBoolean("accepted");
+                    }
+                    TutorShift t = new TutorShift(iN, sT, eT, date, gt);
+                    if(aN != "") t.acceptorName = aN;
+                    if(acc != false) t.accepted = true;
+                    tempList.Add(t);
+                }
+            }
+            CloseConnection();
+            return tempList;
+        }
+
     }
 }
