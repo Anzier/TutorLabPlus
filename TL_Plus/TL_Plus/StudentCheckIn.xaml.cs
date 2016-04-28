@@ -80,6 +80,8 @@ namespace TL_Plus
                 teachersIDs = connectTeachers.getTeachersHelper(c);
                 MySQLConnect connectTeachers2 = new MySQLConnect();//opens a new connection to the DB
                 teachers = connectTeachers2.getTeachers(teachersIDs); // Returns a list of the teachers in the database as a list of strings.
+                TeacherCB.Items.Clear();
+                
                 for (int i = 0; i < teachers.Count; i++)
                 {
                     TeacherCB.Items.Add(teachers[i]);

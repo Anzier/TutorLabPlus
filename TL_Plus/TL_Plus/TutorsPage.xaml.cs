@@ -80,14 +80,12 @@ namespace TL_Plus
         
         private void givingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
         {
-            int index = givingshift.SelectedIndex;
             takingshift.UnselectAll();
             tradedshifts.UnselectAll();
         }
 
         private void takingshift_SelectionChanged(object sender, SelectionChangedEventArgs e)//un needed
         {
-            int index = takingshift.SelectedIndex;
             givingshift.UnselectAll();
             tradedshifts.UnselectAll();
         }
