@@ -24,15 +24,12 @@ namespace TL_Plus
 
         private void Initialize()
         {
-            server = "se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com";
-            database = "se3450";
-            uid = "Mach5";
-            password = "DarthVader";
+            server = "";
+            database = "";
+            uid = "";
+            password = "";
 
-            /*server = "localhost";
-            database = "cs3450";
-            uid = "root";
-            password = "Pass";*/
+
             string connectString;
             connectString = "host=" + server + ";Database=" + database + ";Uid=" + uid + ";Pwd=" + password + ";";
             connection = new MySqlConnection(connectString);

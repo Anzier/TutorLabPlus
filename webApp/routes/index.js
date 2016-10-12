@@ -14,11 +14,11 @@ var profList = ['ALLAN','WATSON','LEE','CHENG',
 'SUNDBERG','WILLIS']
 
 var connection = mysql.createConnection({
-  host    : 'se3450.cl7tq4md0ynb.us-west-1.rds.amazonaws.com',
-  user    : 'Mach5',
-  password: 'DarthVader',
-  port    : '3306',
-  database: 'se3450'
+  host    : '',
+  user    : '',
+  password: '',
+  port    : '',
+  database: ''
 })
 
 //a basic query of the mysql database
